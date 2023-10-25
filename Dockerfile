@@ -42,7 +42,7 @@ RUN apt-get clean -y && \
 WORKDIR /root
 
 # Install pyhton dependencies
-RUN pip install --break-system-packages west pyelftools && \
+RUN pip install --break-system-packages west pyelftools pylink-square && \
 	echo 'export PATH=~/.local/bin:"$PATH"' >> ~/.bashrc
 
 # Init the Zephyr workspace
