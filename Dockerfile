@@ -81,7 +81,7 @@ libsm6,\
 libice6,\
 libglib2.0-0\
  --unpack JLink_Linux_V792k_x86_64.deb && \
-	rm -f /var/lib/dpkg/info/jlink.postinst && \
+	rm /var/lib/dpkg/info/jlink.postinst && \
 	dpkg --ignore-depends=\
 libxrender1,\
 libxcb-render0,\
@@ -106,7 +106,7 @@ libsm6,\
 libice6,\
 libglib2.0-0\
  --configure jlink && \
-	apt-get install -f -y && \
+	apt-get install -fy && \
 	rm JLink_Linux_V792k_x86_64.deb
 
 WORKDIR /root/zephyrproject
