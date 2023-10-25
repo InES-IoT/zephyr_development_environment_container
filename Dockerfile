@@ -108,7 +108,3 @@ libglib2.0-0\
  --configure jlink && \
 	apt-get install -fy && \
 	rm JLink_Linux_V792k_x86_64.deb
-
-WORKDIR /root/zephyrproject
-
-RUN west build -b nrf52840dk_nrf52840 zephyr/samples/basic/blinky
