@@ -1,0 +1,71 @@
+\documentclass[11pt,a4paper,notitlepage]{article}
+
+\usepackage[margin=3cm]{geometry}
+
+\usepackage{bookmark}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=black}
+
+\usepackage{enumitem}
+\setlist[enumerate]{leftmargin=*}
+\setlist[itemize]{leftmargin=*}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,escapechar=`,commentstyle=\color{darkgray},frame=l,framerule=1pt}
+\NewDocumentCommand{\mono}{m}{\lstinline{#1}}
+\lstnewenvironment{code} {\lstset{language=C}} {}
+
+\usepackage{calc}
+
+\usepackage{float}
+
+\usepackage{booktabs}
+
+\usepackage{xcolor}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{.5em}
+\setlength{\skip\footins}{2em}
+
+\renewcommand*\familydefault{\sfdefault}
+
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+\usepackage{tcolorbox}
+\tcbset{parbox=false}
+\newenvironment{infobox} {\begin{tcolorbox}[title=Info]} {\end{tcolorbox}}
+
+\newcommand{\zephyrversion}[0]{3.5.0}
+
+\newcommand{\maintitle}[0]{Zephyr Build Container}
+
+\NewDocumentCommand{\puttitle}{m}{%
+ \begin{center}
+  \huge
+  \begin{minipage}[b]{.5\textwidth}
+   \includegraphics[height=2.5em]{en-zhaw-ines}
+  \end{minipage}%
+  \begin{minipage}[b]{.5\textwidth}
+   \begin{flushright}
+    \textbf{\maintitle}\\
+    #1
+   \end{flushright}
+  \end{minipage}%
+  \vspace{1cm}
+ \end{center}
+ \lfoot{\maintitle{} #1}
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}

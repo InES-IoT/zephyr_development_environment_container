@@ -1,0 +1,37 @@
+\input{common.tex}
+
+\begin{document}
+
+\puttitle{}
+
+\section{Introduction}
+
+Zephyr \zephyrversion{}
+
+\emph{Docker}
+
+\mono{podman machine init}
+
+\begin{lstlisting}
+west build
+west flash
+\end{lstlisting}
+
+\begin{infobox}
+ \dots
+\end{infobox}
+
+\newpage
+
+\appendix
+
+\section{Dockerfile}\label{dockerfile}
+
+\lstinputlisting{../Dockerfile}
+
+\end{document}
+
+% Local Variables:
+% TeX-output-dir: "build"
+% TeX-master: t
+% End:
