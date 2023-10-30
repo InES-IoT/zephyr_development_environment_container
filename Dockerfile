@@ -17,6 +17,7 @@ RUN apt-get -y update && \
 	ninja-build
 
 # Install Zephyr SDK
+ARG ZEPHYR_VERSION=3.5.0
 ARG ZSDK_VERSION=0.16.3
 ARG JLINK_VERSION=V792k
 
@@ -44,7 +45,7 @@ RUN pip install --break-system-packages west pyelftools pylink-square && \
 	echo 'export PATH=~/.local/bin:"$PATH"' >> ~/.bashrc
 
 # Init the Zephyr workspace
-RUN west init -m https://github.com/zephyrproject-rtos/zephyr --mr v3.5.0 zephyrproject && \
+RUN west init -m https://github.com/zephyrproject-rtos/zephyr --mr v${ZEPHYR_VERSION} zephyrproject && \
 	cd zephyrproject && \
 	west update && \
 	west zephyr-export && \
