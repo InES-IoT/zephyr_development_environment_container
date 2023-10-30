@@ -38,18 +38,18 @@ RUN apt-get clean -y && \
 	apt-get autoremove --purge -y && \
 	rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root
-
 # Install pyhton dependencies
 RUN pip install --break-system-packages west pyelftools pylink-square && \
 	echo 'export PATH=~/.local/bin:"$PATH"' >> ~/.bashrc
 
 # Init the Zephyr workspace
-RUN west init -m https://github.com/zephyrproject-rtos/zephyr --mr v${ZEPHYR_VERSION} zephyrproject && \
-	cd zephyrproject && \
-	west update && \
-	west zephyr-export && \
-	echo 'source /root/zephyrproject/zephyr/zephyr-env.sh' >> ~/.bashrc
+WORKDIR /root/zephyrproject
+
+RUN git clone --branch zephyr-v${ZEPHYR_VERSION} --depth=1 \
+	https://github.com/zephyrproject-rtos/zephyr && \
+	west init -l zephyr && \
+	west update -n -o=--depth=1 hal_stm32 cmsis && \
+	echo 'source '$(pwd)'/zephyr/zephyr-env.sh' >> ~/.bashrc
 
 # Hack to make J-Link deb installation work
 RUN ln -s $(which true) /usr/local/bin/udevadm
