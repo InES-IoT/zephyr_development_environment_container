@@ -1,8 +1,5 @@
 FROM debian:12-slim
 
-# Set default shell during Docker image build to bash
-SHELL ["/bin/bash", "-c"]
-
 # Set non-interactive frontend for apt-get to skip any user confirmations
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -23,7 +20,8 @@ RUN apt-get -y update && \
 ARG ZSDK_VERSION=0.16.3
 ARG JLINK_VERSION=V792k
 
-RUN mkdir -p /opt/toolchains && \
+RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
+	mkdir -p /opt/toolchains && \
 	cd /opt/toolchains && \
 	wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.xz && \
 	tar xf zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.xz && \
