@@ -38,7 +38,7 @@ RUN apt-get clean -y && \
 	apt-get autoremove --purge -y && \
 	rm -rf /var/lib/apt/lists/*
 
-# Install pyhton dependencies
+# Install python dependencies
 RUN pip install --break-system-packages west pyelftools pylink-square && \
 	echo 'export PATH=~/.local/bin:"$PATH"' >> ~/.bashrc
 
@@ -60,3 +60,6 @@ RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
 	https://www.segger.com/downloads/jlink/JLink_Linux_${HOSTTYPE}.deb && \
 	dpkg --force-depends -i JLink_Linux_${HOSTTYPE}.deb && \
 	rm JLink_Linux_${HOSTTYPE}.deb
+
+WORKDIR /root/dev
+CMD ["bash"]
