@@ -14,12 +14,12 @@ RUN apt-get -y update && \
 	wget \
 	xz-utils \
 	openocd \
-	ninja-build
+	ninja-build \
+	curl
 
 # Install Zephyr SDK
 ARG ZEPHYR_VERSION=3.5.0
 ARG ZSDK_VERSION=0.16.3
-ARG JLINK_VERSION=V792k
 
 RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
 	mkdir -p /opt/toolchains && \
@@ -51,59 +51,12 @@ RUN west init -m https://github.com/zephyrproject-rtos/zephyr --mr v${ZEPHYR_VER
 	west zephyr-export && \
 	echo 'source /root/zephyrproject/zephyr/zephyr-env.sh' >> ~/.bashrc
 
-RUN	apt-get -y update && \
-	apt-get install --no-install-recommends -y curl
+# Hack to make J-Link deb installation work
+RUN ln -s $(which true) /usr/local/bin/udevadm
 
-# Get and install the J-Link software pack
-RUN curl -O -d accept_license_agreement=accepted -d non_emb_ctr=confirmed https://www.segger.com/downloads/jlink/JLink_Linux_${JLINK_VERSION}_x86_64.deb && \
-	dpkg --ignore-depends=\
-libxrender1,\
-libxcb-render0,\
-libxcb-render-util0,\
-libxcb-shape0,\
-libxcb-randr0,\
-libxcb-xfixes0,\
-libxcb-sync1,\
-libxcb-shm0,\
-libxcb-icccm4,\
-libxcb-keysyms1,\
-libxcb-image0,\
-libxkbcommon0,\
-libxkbcommon-x11-0,\
-libfontconfig1,\
-libfreetype6,\
-libxext6,\
-libx11-6,\
-libxcb1,\
-libx11-xcb1,\
-libsm6,\
-libice6,\
-libglib2.0-0\
- --unpack JLink_Linux_V792k_x86_64.deb && \
-	rm /var/lib/dpkg/info/jlink.postinst && \
-	dpkg --ignore-depends=\
-libxrender1,\
-libxcb-render0,\
-libxcb-render-util0,\
-libxcb-shape0,\
-libxcb-randr0,\
-libxcb-xfixes0,\
-libxcb-sync1,\
-libxcb-shm0,\
-libxcb-icccm4,\
-libxcb-keysyms1,\
-libxcb-image0,\
-libxkbcommon0,\
-libxkbcommon-x11-0,\
-libfontconfig1,\
-libfreetype6,\
-libxext6,\
-libx11-6,\
-libxcb1,\
-libx11-xcb1,\
-libsm6,\
-libice6,\
-libglib2.0-0\
- --configure jlink && \
-	apt-get install -fy && \
-	rm JLink_Linux_V792k_x86_64.deb
+# Get and install the J-Link Software and Documentation Pack
+RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
+	curl -O -d accept_license_agreement=accepted -d non_emb_ctr=confirmed \
+	https://www.segger.com/downloads/jlink/JLink_Linux_${HOSTTYPE}.deb && \
+	dpkg --force-depends -i JLink_Linux_${HOSTTYPE}.deb && \
+	rm JLink_Linux_${HOSTTYPE}.deb
