@@ -104,13 +104,27 @@ command in a PowerShell to get the IP of the WSL network adapter.
 
 \mono{wsl -d podman-machine-default grep nameserver /etc/resolv.conf}
 
-Start the \emph{J-Link Remote Server} and run the following command to flash the
-board.
-
-\mono{west flash --runner jlink --tool-opt='-ip 172.21.160.1:19020'}
+Start the \emph{J-Link Remote Server}
 
 \begin{infobox}
   If the J-Link Remote Server shows an error try using a different port.
+\end{infobox}
+
+run the following command to flash the board.
+
+\mono{west -v flash --runner jlink --tool-opt='-ip 172.21.160.1:19020'}
+
+\begin{infobox}
+  If you get a \emph{FAILED: Can not connect to J-Link via TCP/IP} error try
+  adding a firewall rule that allows inbound connections on the WSL network
+  adapter. To do that run the following command in an admin PowerShell.
+
+  \begin{lstlisting}
+New-NetFirewallRule -DisplayName "WSL" -Direction Inbound `
+ -InterfaceAlias "vEthernet (WSL)" -Action Allow
+  \end{lstlisting}
+
+  Firewall rules can also be managed by running \mono{wf.msc} in a PowerShell.
 \end{infobox}
 
 \newpage
