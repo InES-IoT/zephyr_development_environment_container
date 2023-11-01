@@ -20,11 +20,13 @@ ARG SDK_VERSION
 RUN test -n "${SDK_VERSION}" || (echo "SDK_VERSION build argument not set" && false)
 WORKDIR /opt/toolchains
 RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
-	wget --quiet -O sdk.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${SDK_VERSION}/zephyr-sdk-${SDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.xz && \
+	wget --quiet -O sdk.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/\
+v${SDK_VERSION}/zephyr-sdk-${SDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.xz && \
 	tar -xf sdk.tar.xz && \
 	rm sdk.tar.xz && \
 	cd zephyr-sdk-${SDK_VERSION} && \
-	wget --quiet -O toolchain.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${SDK_VERSION}/toolchain_linux-${HOSTTYPE}_arm-zephyr-eabi.tar.xz && \
+	wget --quiet -O toolchain.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/\
+v${SDK_VERSION}/toolchain_linux-${HOSTTYPE}_arm-zephyr-eabi.tar.xz && \
 	tar -xf toolchain.tar.xz && \
 	./setup.sh -t arm-zephyr-eabi -c && \
 	rm toolchain.tar.xz zephyr-*.sh

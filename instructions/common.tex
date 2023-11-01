@@ -12,7 +12,7 @@
 \setlist[itemize]{leftmargin=*}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily,escapechar=`,commentstyle=\color{darkgray},frame=l,framerule=1pt}
+\lstset{basicstyle=\ttfamily,escapechar=@,tabsize=4,commentstyle=\color{darkgray},frame=l,framerule=1pt}
 \NewDocumentCommand{\mono}{m}{\lstinline{#1}}
 \lstnewenvironment{code} {\lstset{language=C}} {}
 
@@ -38,24 +38,25 @@
 \newenvironment{infobox} {\begin{tcolorbox}[title=Info]} {\end{tcolorbox}}
 
 \newcommand{\zephyrversion}[0]{3.5.0}
+\newcommand{\imagename}[0]{zephyr\_stm32\_v\zephyrversion{}}
 
-\newcommand{\maintitle}[0]{Zephyr Build Container}
+\newcommand{\maintitle}[0]{Zephyr Development Environment Container}
 
 \NewDocumentCommand{\puttitle}{m}{%
- \begin{center}
-  \huge
-  \begin{minipage}[b]{.5\textwidth}
-   \includegraphics[height=2.5em]{en-zhaw-ines}
-  \end{minipage}%
-  \begin{minipage}[b]{.5\textwidth}
-   \begin{flushright}
-    \textbf{\maintitle}\\
-    #1
-   \end{flushright}
-  \end{minipage}%
-  \vspace{1cm}
- \end{center}
- \lfoot{\maintitle{} #1}
+  \begin{center}
+    \huge
+    \begin{minipage}[b]{.4\textwidth}
+      \includegraphics[height=2.5em]{en-zhaw-ines}
+    \end{minipage}%
+    \begin{minipage}[b]{.6\textwidth}
+      \begin{flushright}
+        \textbf{\maintitle}\\
+        #1
+      \end{flushright}
+    \end{minipage}%
+    \vspace{1cm}
+  \end{center}
+  \lfoot{\maintitle{} #1}
 }
 
 \usepackage{fancyhdr}

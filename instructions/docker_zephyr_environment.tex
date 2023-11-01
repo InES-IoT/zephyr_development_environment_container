@@ -6,28 +6,122 @@
 
 \section{Introduction}
 
-Zephyr \zephyrversion{}
+\newpage
 
-\emph{Docker}
+\section{Windows}
 
-\mono{podman machine init}
+Install the following programs.
+
+\begin{itemize}
+  \item \textbf{Windows Terminal (\href{https://aka.ms/terminal}{Download})}
+  \item \textbf{J-Link Software and Documentation pack
+          (\href{https://www.segger.com/downloads/jlink/JLink_Windows_x86_64.exe}{Download})}
+
+        Tick the \emph{Install USB Driver for J-Link (requires admin rights)} checkbox
+        during installation.
+  \item \textbf{podman for Windows (podman-X.X.X-setup.exe)
+          (\href{https://github.com/containers/podman/releases}{Download})}
+
+        When installing podman, make sure that the \emph{Install WSL if not present} checkbox is checked.
+
+        The following instructions are based on the
+        \href{https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md}
+        {official
+          instructions}.
+
+        Run the following commands after the podman installation is complete.
+
+        \begin{lstlisting}
+podman machine init
+podman machine start
+podman run ubi8-micro date
+       \end{lstlisting}
+
+        \begin{infobox}
+          If the \emph{podman run} command produces a gigantic error message try
+          reinstalling the WSL image by running the following command and then
+          repeating the commands from above.
+
+          \mono{podman machine rm}
+        \end{infobox}
+        \begin{infobox}
+          The \mono{podman machine start} command needs to be re-run after a reboot.
+        \end{infobox}
+\end{itemize}
+
+\newpage
+
+\section{Using the Container}
+
+\subsection{Load the Image}
+
+\mono{podman load --input} {\ttfamily\imagename{}}\mono{.tar.gz}
+
+\subsection{Start Shell in Container}
 
 \begin{lstlisting}
-west build
-west flash
+podman run --rm -it --network="host" `
+  -v D:\path\to\project:/root/dev `
+  @\ttfamily\imagename{}@
 \end{lstlisting}
 
 \begin{infobox}
- \dots
+  In case you get a
+  \emph{D:\textbackslash{}path\textbackslash{}to\textbackslash{}project: no such
+    file or directory} error the file system might not be available from the WSL.
+  Run the following command to list the available file systems.
+
+  \mono{wsl -d podman-machine-default ls /mnt}
+
+  You can try mounting the missing file system (\mono{D:\\} in this case) with
+  the following commands.
+
+  \mono{wsl -d podman-machine-default sudo mkdir /mnt/d}
+
+  \mono{wsl -d podman-machine-default sudo mount -t drvfs D: /mnt/d}
+\end{infobox}
+
+\subsection{Build Sample}
+
+\mono{cd ~/zephyrproject/zephyr/samples/basic/blinky/}
+
+\mono{west build --pristine --board stm32f429i_disc1}
+
+\begin{infobox}
+  Append the \mono{--build-dir /tmp/build} argument if you mounted a drive from
+  the Windows host. This will speed up the build process as accessing the
+  Windows file system from the WSL is slow.
+
+  \mono{west build --pristine --board stm32f429i_disc1 --build-dir /tmp/build}
+
+  This argument will then also be needed when running \mono{west flash}.
+\end{infobox}
+
+\subsection{Flash Sample}
+
+To flash from within the WSL the J-Link Remote Server is used. Run the following
+command in a PowerShell to get the IP of the WSL network adapter.
+
+\mono{wsl -d podman-machine-default grep nameserver /etc/resolv.conf}
+
+Start the \emph{J-Link Remote Server} and run the following command to flash the
+board.
+
+\mono{west flash --runner jlink --tool-opt='-ip 172.21.160.1:19020'}
+
+\begin{infobox}
+  If the J-Link Remote Server shows an error try using a different port.
 \end{infobox}
 
 \newpage
 
+\newgeometry{margin=1cm,bottom=2cm}
+\fancyfoot{}
+
 \appendix
 
 \section{Containerfile}\label{containerfile}
-
-\lstinputlisting{../Containerfile}
+\lstinputlisting[basicstyle=\ttfamily\footnotesize]{../Containerfile}
 
 \end{document}
 
