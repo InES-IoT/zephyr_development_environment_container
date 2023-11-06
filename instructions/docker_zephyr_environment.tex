@@ -8,7 +8,7 @@
 
 \newpage
 
-\section{Windows}
+\section{Using the Container with WSL2}
 
 Install the following programs.
 
@@ -19,67 +19,68 @@ Install the following programs.
 
         Tick the \emph{Install USB Driver for J-Link (requires admin rights)} checkbox
         during installation.
-  \item \textbf{podman for Windows (podman-X.X.X-setup.exe)
-          (\href{https://github.com/containers/podman/releases}{Download})}
+\end{itemize}
 
-        When installing podman, make sure that the \emph{Install WSL if not present} checkbox is checked.
+The container can be imported and used as a WSL2 distro.
 
-        The following instructions are based on the
-        \href{https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md}
-        {official
-          instructions}.
+\begin{itemize}
+\item Open a terminal in the lab folder.
+\item Ensure that WSL is installed.
+% '--no-distribution' windows 11 only?
+% winget install "Windows Subsystem for Linux"
+\begin{lstlisting}
+wsl --install --no-distribution
+\end{lstlisting}
+\item Create a folder for the distro and import it.
+\begin{lstlisting}
+mkdir wslDistroStorage\zephyr
+wsl --import zephyr wslDistroStorage\zephyr @\ttfamily\imagename{}@_wsl.tar.gz
+\end{lstlisting}
+\item Open a shell inside the distro.
+\begin{lstlisting}
+wsl -d zephyr
+\end{lstlisting}
+\end{itemize}
 
-        Run the following commands after the podman installation is complete.
+\begin{infobox}
+  In case you get a
+  \emph{CreateProcessParseCommon:789: Failed to translate D:\textbackslash}
+  error the file system might not be available from within WSL.
+  Run the following command to list the available file systems.
 
-        \begin{lstlisting}
-podman machine init
-podman machine start
-podman run ubi8-micro date
-       \end{lstlisting}
+  \cmdinwsl{ls /mnt}
 
-        \begin{infobox}
-          If the \emph{podman run} command produces a gigantic error message try
-          reinstalling the WSL image by running the following command and then
-          repeating the commands from above.
+  You can try mounting the missing file system (\mono{D:\\} in this case) with
+  the following commands.
 
-          \mono{podman machine rm}
-        \end{infobox}
-        \begin{infobox}
-          The \mono{podman machine start} command needs to be re-run after a reboot.
-        \end{infobox}
+  \cmdinwsl{mkdir /mnt/d}
+
+  \cmdinwsl{mount -t drvfs D: /mnt/d}
+\end{infobox}
+
+\newpage
+
+\section{Using the Container with a Container Runtime}
+
+\begin{itemize}
+\item Install a container runtime (e.g. \emph{podman} or \emph{docker}).
+
+\item Load the Image
+
+\mono{podman load --input} {\ttfamily\imagename{}}\mono{.tar.gz}
+
+\item Start Shell in Container
+
+\begin{lstlisting}
+podman run --rm -it --network="host" \
+  -v /path/to/project:/root/dev \
+  @\ttfamily\imagename{}@
+\end{lstlisting}
 \end{itemize}
 
 \newpage
 
 \section{Using the Container}
-
-\subsection{Load the Image}
-
-\mono{podman load --input} {\ttfamily\imagename{}}\mono{.tar.gz}
-
-\subsection{Start Shell in Container}
-
-\begin{lstlisting}
-podman run --rm -it --network="host" `
-  -v D:\path\to\project:/root/dev `
-  @\ttfamily\imagename{}@
-\end{lstlisting}
-
-\begin{infobox}
-  In case you get a
-  \emph{D:\textbackslash{}path\textbackslash{}to\textbackslash{}project: no such
-    file or directory} error the file system might not be available from the WSL.
-  Run the following command to list the available file systems.
-
-  \mono{wsl -d podman-machine-default ls /mnt}
-
-  You can try mounting the missing file system (\mono{D:\\} in this case) with
-  the following commands.
-
-  \mono{wsl -d podman-machine-default sudo mkdir /mnt/d}
-
-  \mono{wsl -d podman-machine-default sudo mount -t drvfs D: /mnt/d}
-\end{infobox}
 
 \subsection{Build Sample}
 
@@ -102,7 +103,7 @@ podman run --rm -it --network="host" `
 To flash from within the WSL the J-Link Remote Server is used. Run the following
 command in a PowerShell to get the IP of the WSL network adapter.
 
-\mono{wsl -d podman-machine-default grep nameserver /etc/resolv.conf}
+\cmdinwsl{grep nameserver /etc/resolv.conf}
 
 Start the \emph{J-Link Remote Server}
 

@@ -30,3 +30,20 @@ compression and decompression times.
 ``` shell
 podman load --input zephyr_stm32_v3.5.0.tar.gz
 ```
+
+## Use Container as WSL2 Distro
+
+https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro
+
+``` shell
+cid=$(podman create zephyr_stm32_v3.5.0)
+podman export $cid | gzip > zephyr_wsl.tar.gz
+podman rm $cid
+```
+
+``` powershell
+mkdir wslDistroStorage\zephyr
+wsl --import zephyr wslDistroStorage\zephyr zephyr_wsl.tar.gz
+wsl -d zephyr_stm32_v3.5.0
+```
+

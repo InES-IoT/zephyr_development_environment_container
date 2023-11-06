@@ -39,6 +39,7 @@
 
 \newcommand{\zephyrversion}[0]{3.5.0}
 \newcommand{\imagename}[0]{zephyr\_stm32\_v\zephyrversion{}}
+\NewDocumentCommand{\cmdinwsl}{m}{\mono{wsl -d} {\ttfamily\imagename{}} \mono{#1}}
 
 \newcommand{\maintitle}[0]{Zephyr Development Environment Container}
 
