@@ -1,4 +1,4 @@
-SRC=docker_zephyr_environment.tex
+SRC=zephyr_container.tex
 
 .PHONY: all
 all: $(addprefix build/,$(subst .tex,.pdf,${SRC}))

@@ -37,7 +37,7 @@ https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro
 
 ``` shell
 cid=$(podman create zephyr_stm32_v3.5.0)
-podman export $cid | gzip > zephyr_wsl.tar.gz
+podman export $cid | gzip > zephyr_stm32_v3.5.0_wsl.tar.gz
 podman rm $cid
 ```
 
