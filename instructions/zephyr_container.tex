@@ -173,7 +173,17 @@ plink.exe -sercfg 115200 -serial com3
 \appendix
 
 \section{Containerfile}\label{containerfile}
+
 \lstinputlisting[basicstyle=\ttfamily\footnotesize]{../Containerfile}
+
+Usage:
+
+\begin{lstlisting}
+podman build \
+  --build-arg="ZEPHYR_VERSION=@\zephyrversion@" \
+  --build-arg="SDK_VERSION=@\sdkversion@" \
+  . -t @\imagename@
+\end{lstlisting}
 
 \end{document}
 
