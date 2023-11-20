@@ -55,6 +55,6 @@ podman rm $cid
 
 ``` powershell
 mkdir wslDistroStorage\zephyr
-wsl --import zephyr wslDistroStorage\zephyr zephyr_wsl.tar.gz
-wsl -d zephyr_stm32_v3.5.0
+wsl --import zephyr wslDistroStorage\zephyr zephyr_v3.5.0_wsl.tar.gz
+wsl -d zephyr
 ```
