@@ -6,29 +6,37 @@
 
 \section{Introduction}
 
+Containerized environment for developing Zephyr applications. Can either be
+used with a container runtime or the \emph{Windows Subsystem for Linux}.
+
+See appendix~\ref{containerfile} for the Containerfile.
+
 \newpage
 
-\section{Setup with WSL2}
+\section{Setup with WSL}
 
-Install the \textbf{J-Link Software and Documentation pack
-  (\href{https://www.segger.com/downloads/jlink/JLink_Windows_x86_64.exe}{Download})}.
-Make sure to tick the \emph{Install USB Driver for J-Link (requires admin
-  rights)} checkbox during installation.
+Follow these steps to set up a Zephyr development environment in the WSL.
 
-Install \textbf{PuTTY} (\href{https://putty.org/}{Download}) or another
-application that can be used for serial communication.
+\begin{itemize}
+  \item Install the \emph{J-Link Software and Documentation pack}. Make sure to
+        tick the \emph{Install USB Driver for J-Link (requires admin rights)}
+        checkbox during installation.
 
-\begin{lstlisting}
+        \href{https://www.segger.com/downloads/jlink/JLink_Windows_x86_64.exe}{Download}
+
+  \item Install \emph{PuTTY} or another application that can be used for serial
+      communication. Either download from \href{https://putty.org/}{here} or
+      install with \emph{winget}:
+
+        \begin{lstlisting}
 winget install putty.putty
 \end{lstlisting}
 
-For a better terminal experience you can also install \textbf{Windows Terminal
-  (\href{https://aka.ms/terminal}{Download})}.
+  \item Optional: install \href{https://aka.ms/terminal}{\emph{Windows
+      Terminal}} for a better terminal experience.
 
-Follow the next steps to set up the Zephyr development environment in the WSL.
-
-\begin{itemize}
   \item Open a terminal in the lab folder.
+
   \item Ensure that the WSL is installed.
         \begin{lstlisting}
 wsl --install --no-distribution
@@ -36,16 +44,16 @@ wsl --install --no-distribution
         \begin{infobox}
           If you see the help output of \mono{wsl} try without the
           \mono{--no-distribution} switch. If you get an error try installing
-          the WSL from the Windows Store. This can be done with the store GUI or
-          with \mono{winget}:
+          the WSL from the Windows Store. This can be done with the store GUI
+          or with \mono{winget}:
           \begin{lstlisting}
 winget install "Windows Subsystem for Linux"
 \end{lstlisting}
         \end{infobox}
-  \item Create a folder for the environment and import the file that you previously downloaded.
+  \item Create a folder for the environment and import the file that you
+        previously downloaded.
         \begin{lstlisting}
 mkdir D:\wslDistroStorage\@\imagename{}@
-
 wsl --import @\imagename{}@ `
   D:\wslDistroStorage\@\imagename{}@ `
   "$env:USERPROFILE\Downloads\@\imagename{}@_wsl.tar.gz"
@@ -57,18 +65,19 @@ wsl --import @\imagename{}@ `
 \end{lstlisting}
 
         \begin{infobox}
-          In case you get a
-          \emph{CreateProcessParseCommon:789: Failed to translate D:\textbackslash}
-          error the file system might not be available from within WSL.
-          Run the following command to list the available file systems.
+          In case you get a \emph{CreateProcessParseCommon:789: Failed to
+          translate D:\textbackslash} error the file system might not be
+          available from within WSL. Run the following command to list the
+          available file systems.
 
           % \cmdinwsl{ls /mnt}
           \begin{lstlisting}
 @\cmdinwsl{}@ ls /mnt
 \end{lstlisting}
 
-          You can try mounting the missing file system (\mono{D:\\} in this case) with
-          the following commands.
+          You can try mounting the missing file system
+          (\mono{D:\\} in this case) with the following
+          commands.
 
           \begin{lstlisting}
 @\cmdinwsl{}@ mkdir /mnt/d
@@ -80,7 +89,7 @@ wsl --import @\imagename{}@ `
           new tab with the environment. You might have to restart the terminal
           for this option to appear.
           \begin{center}
-            \includegraphics[width=.6\textwidth]{terminal_open_wsl_tab}
+            \includegraphics[width=.5\paperwidth]{terminal_open_wsl_tab}
           \end{center}
         \end{infobox}
 \end{itemize}
@@ -89,19 +98,18 @@ wsl --import @\imagename{}@ `
 
 \section{Setup with a Container Runtime}
 
-
 \begin{itemize}
-  \item Install the \textbf{J-Link Software and Documentation pack
-          (\href{https://www.segger.com/downloads/jlink}{Download})}.
+  \item Install the \emph{J-Link Software and Documentation pack
+        (\href{https://www.segger.com/downloads/jlink}{Download})}.
   \item Install a serial terminal like \mono{minicom}.
   \item Install a container runtime (e.g. \emph{podman} or \emph{docker}).
-  \item Load the image
+  \item Load the image.
         \begin{lstlisting}
 podman load --input @\imagename{}@.tar.gz
 \end{lstlisting}
-  \item Run the container
+  \item Run the container.
         \begin{lstlisting}
-podman run --rm -it --network="host" \
+podman run --rm -it \
   -v /path/to/project:/root/dev \
   @\imagename{}@
 \end{lstlisting}
@@ -109,7 +117,7 @@ podman run --rm -it --network="host" \
 
 \newpage
 
-\section{Using the Container}
+\section{Using the Zephyr Environment}
 
 \subsection{Build Sample}
 
@@ -120,14 +128,52 @@ cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board stm32f429i_disc1 --build-dir /tmp/build
 \end{lstlisting}
 
+% container runtime: make sure builddir accessible
+
 \subsection{Flash Sample}
 
-To flash from within the container the \emph{J-Link Remote Server} is used.
+Start \emph{J-Flash Lite}. Select the target device. Select the firmware file
+(\mono{build/zephyr/zephyr.hex}) and click on \emph{Program Device}.
+
+% \begin{center}
+%   \includegraphics[width=.5\paperwidth]{jflashlite_1.png}
+% \end{center}
+
+\begin{infobox}
+  The WSL file system can be accessed in the explorer.
+  \begin{center}
+    \includegraphics[width=.5\paperwidth]{explorer_wsl_hex}
+  \end{center}
+\end{infobox}
+
+See appendix~\ref{jlinkremote} for an alternative solution where \mono{west
+flash} can be used to flash the target.
+
+Open a serial terminal with e.g. PuTTY to see the log output:
+
+\begin{lstlisting}
+plink.exe -sercfg 115200 -serial com3
+\end{lstlisting}
+
+\begin{infobox}
+  Open the device manager to find the COM-port number.
+  \begin{center}
+    \includegraphics[width=.5\paperwidth]{device_manager_com}
+  \end{center}
+\end{infobox}
+
+\newpage
+
+\appendix
+
+\section{Alternative to J-Flash Lite}\label{jlinkremote}
+
+The \emph{J-Link Remote Server} can be used to flash from within the container.
 Start the J-Link Remote Server on the host now.
 
 \begin{infobox}
-  If the J-Link Remote Server shows an error try using a different port
-  (19020 is the default).
+  If the J-Link Remote Server shows an error try using a different port (19020
+  is the default).
 \end{infobox}
 
 Run the following command in a PowerShell to get the IP of the WSL network
@@ -147,6 +193,11 @@ west -v flash --runner jlink \
 \end{lstlisting}
 
 \begin{infobox}
+  On Linux, add the \mono{--network="host"} argument to \mono{podman run}
+  and use \emph{127.0.0.1} as the IP address.
+\end{infobox}
+
+\begin{infobox}
   If you get a \emph{FAILED: Can not connect to J-Link via TCP/IP} error try
   adding a firewall rule that allows inbound connections on the WSL network
   adapter. To do that run the following command in an admin PowerShell.
@@ -159,24 +210,16 @@ New-NetFirewallRule -DisplayName "WSL" -Direction Inbound `
   Firewall rules can also be managed by running \mono{wf.msc} in a PowerShell.
 \end{infobox}
 
-Open a serial terminal with e.g. PuTTY to see the log output:
-
-\begin{lstlisting}
-plink.exe -sercfg 115200 -serial com3
-\end{lstlisting}
-
 \newpage
 
-\newgeometry{margin=1cm,bottom=2cm}
+\newgeometry{margin=2cm}
 \fancyfoot{}
-
-\appendix
 
 \section{Containerfile}\label{containerfile}
 
-\lstinputlisting[basicstyle=\ttfamily\footnotesize]{../Containerfile}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize]{../Containerfile}
 
-Usage:
+Usage example:
 
 \begin{lstlisting}
 podman build \
