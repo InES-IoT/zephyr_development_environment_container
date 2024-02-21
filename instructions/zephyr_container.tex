@@ -29,11 +29,15 @@ Follow these steps to set up a Zephyr development environment in the WSL.
       install with \emph{winget}:
 
         \begin{lstlisting}
-winget install putty.putty
+winget install --id PuTTY.PuTTY -e
 \end{lstlisting}
 
-  \item Optional: install \href{https://aka.ms/terminal}{\emph{Windows
-      Terminal}} for a better terminal experience.
+  \item Optional: install \href{https://aka.ms/terminal}{\emph{Windows Terminal}}
+      for a better terminal experience.
+
+        \begin{lstlisting}
+winget install --id Microsoft.WindowsTerminal -e
+\end{lstlisting}
 
   \item Open a terminal in the lab folder.
 
@@ -44,8 +48,8 @@ wsl --install --no-distribution
         \begin{infobox}
           If you see the help output of \mono{wsl} try without the
           \mono{--no-distribution} switch. If you get an error try installing
-          the WSL from the Windows Store. This can be done with the store GUI
-          or with \mono{winget}:
+          the WSL from the Windows Store. This can be done with in the
+          \emph{Microsoft Store} or with \mono{winget}:
           \begin{lstlisting}
 winget install "Windows Subsystem for Linux"
 \end{lstlisting}

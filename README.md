@@ -13,6 +13,7 @@ LVGL graphics library and the SEGGER SystemView and RTT libraries.
 
 ``` shell
 podman build \
+  --file=Containerfile \
   --build-arg="ZEPHYR_VERSION=3.5.0" \
   --build-arg="SDK_VERSION=0.16.3" \
   --build-arg="MODULES=cmsis hal_stm32 lvgl segger" \
@@ -45,13 +46,17 @@ podman load --input zephyr_stm32_v3.5.0.tar.gz
 
 ## Use Container as WSL2 Distro
 
-https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro
+See https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro for reference.
+
+Export container file system of container:
 
 ``` shell
 cid=$(podman create zephyr_stm32_v3.5.0)
 podman export $cid | gzip > zephyr_stm32_v3.5.0_wsl.tar.gz
 podman rm $cid
 ```
+
+Import file system as WSL2 distro on Windows:
 
 ``` powershell
 mkdir wslDistroStorage\zephyr
