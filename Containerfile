@@ -45,7 +45,7 @@ ARG ZEPHYR_VERSION
 RUN test -n "${ZEPHYR_VERSION}" || (echo "ZEPHYR_VERSION build argument not set" && false)
 ARG MODULES
 WORKDIR /root/zephyrproject
-RUN git clone --branch zephyr-v${ZEPHYR_VERSION} --depth=1 \
+RUN git clone --branch v${ZEPHYR_VERSION} --depth=1 \
 	https://github.com/zephyrproject-rtos/zephyr && \
 	west init --local zephyr && \
 	west update --narrow --fetch-opt=--depth=1 ${MODULES} && \
