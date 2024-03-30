@@ -170,14 +170,14 @@ Run the following inside the environment to compile the blinky sample.
 
 \begin{lstlisting}
 cd ~/zephyrproject/zephyr/samples/basic/blinky/
-west build --pristine --board stm32f429i_disc1 --build-dir /tmp/build
+west build --pristine --board @\board{}@ --build-dir /tmp/build
 \end{lstlisting}
 
 % container runtime: make sure builddir accessible
 
 \subsection{Flash Sample}
 
-Start \emph{J-Flash Lite} and select the target device (\mcutype{}). In the next
+Start \emph{J-Flash Lite} and select the target device (\emph{\mcu{}}). In the next
 window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on
 \emph{Program Device}.
 
@@ -280,9 +280,9 @@ Usage example:
 
 \begin{lstlisting}
 podman build \
-  --build-arg="ZEPHYR_VERSION=@\zephyrversion@" \
-  --build-arg="SDK_VERSION=@\sdkversion@" \
-  . -t @\imagename@
+  --build-arg="ZEPHYR_VERSION=@\zephyrversion{}@" \
+  --build-arg="SDK_VERSION=@\sdkversion{}@" \
+  . -t @\imagename{}@
 \end{lstlisting}
 
 \end{document}
@@ -290,4 +290,5 @@ podman build \
 % Local Variables:
 % TeX-output-dir: "build"
 % TeX-master: t
+% TeX-engine: luatex
 % End:

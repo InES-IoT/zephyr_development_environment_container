@@ -44,13 +44,20 @@
 \tcbset{parbox=false}
 \newenvironment{infobox} {\begin{tcolorbox}[title=Info]} {\end{tcolorbox}}
 
-\newcommand{\zephyrversion}[0]{3.5.0}
-\newcommand{\sdkversion}[0]{0.16.3}
-\newcommand{\imagename}[0]{zephyr\_stm32\_v\zephyrversion{}}
-\newcommand{\cmdinwsl}[0]{wsl -d \imagename{}}
-\newcommand{\mcutype}[0]{\emph{STM32F429ZI}}
+% \def\zephyrversion {3.6.0}
+% \def\sdkversion {0.16.5}
+% \def\mcu {STM32F429ZI}
+% \def\board {stm32f429i\_disc1}
 
-\newcommand{\maintitle}[0]{Zephyr Development Environment Container}
+\ifundef{\zephyrversion}{\errmessage{error: zephyrversion variable not set}}
+\ifundef{\sdkversion}{\errmessage{error: sdkversion variable not set}}
+\ifundef{\mcu}{\errmessage{error: mcu variable not set}}
+\ifundef{\board}{\errmessage{error: board variable not set}}
+\ifundef{\imagename}{\errmessage{error: imagename variable not set}}
+
+\def\cmdinwsl {wsl -d \imagename{}}
+
+\def\maintitle {Zephyr Development Environment Container}
 
 \NewDocumentCommand{\puttitle}{m}{%
   \begin{center}
