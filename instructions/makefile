@@ -34,7 +34,7 @@ endif
 
 .PHONY: format
 format: | ${LATEXINDENT_DIR}
-	latexindent -l -w -s -m -c $< *.tex
+	latexindent -l -w -s -m -c $| *.tex
 
 ${BUILD_DIR} ${LATEXINDENT_DIR}:
 	mkdir -p $@

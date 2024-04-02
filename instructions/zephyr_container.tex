@@ -6,46 +6,41 @@
 
 \section{Introduction}
 
-These instructions explain the setup of a containerized environment for
-developing Zephyr applications. This environment can either be used with a
-container runtime or the \emph{Windows Subsystem for Linux}.
+These instructions explain the setup of a containerized environment for developing Zephyr applications.
+This environment can either be used with a container runtime or the \emph{Windows Subsystem for Linux}.
 
-The \emph{Containerfile} can be found in Appendix~\ref{containerfile} for anyone
-interested.
+The \emph{Containerfile} can be found in Appendix~\ref{containerfile} for anyone interested.
 
 \section{Technical Background (optional read)}
 
 \subsection{Necessity for WSL or Containers}
 
-In the following labs, you are going to work with the Zephyr RTOS. By providing
-a containerized environment, we can ensure a reproducible setup. Additionally,
-the images are lightweight, have a small memory footprint, and outperform a
-conventional VM.
+In the following labs, you are going to work with the Zephyr RTOS.
+By providing a containerized environment, we can ensure a reproducible setup.
+Additionally, the images are lightweight, have a small memory footprint, and outperform a conventional VM.
 
 \subsection{Windows Subsystem for Linux}
 
-The Windows Subsystem for Linux (WSL 2) is available for Windows 10/11 since
-2019. Not all Windows Versions include it per default, an installation is
-possible via the Microsoft Store or \emph{winget}. WSL 2 runs inside a managed
-virtual machine (VM) that includes a Linux kernel. The virtualization is
-implemented via a highly optimized subset of Hyper-V features. WSL 2 on Windows
-11 can retain up to 95 \% of the performance of a native Linux Distribution.
+The Windows Subsystem for Linux (WSL 2) is available for Windows 10/11 since 2019.
+Not all Windows Versions include it per default, an installation is possible via the Microsoft Store or \emph{winget}.
+WSL 2 runs inside a managed virtual machine (VM) that includes a Linux kernel.
+The virtualization is implemented via a highly optimized subset of Hyper-V features.
+WSL 2 on Windows 11 can retain up to 95 \% of the performance of a native Linux Distribution.
 
 \subsubsection*{Benefits compared to a conventional VM}
 
 \begin{itemize}
-\item Seamless integration in Windows. Files contained within the WSL can be
-  accessed directly via the regular Windows file explorer.
-\item After creating a WSL image, it can be started directly in the file explorer.
-\item The VM setup is seamless and executed automatically without user
-  interaction.
+  \item Seamless integration in Windows.
+        Files contained within the WSL can be accessed directly via the regular Windows file explorer.
+  \item After creating a WSL image, it can be started directly in the file explorer.
+  \item The VM setup is seamless and executed automatically without user
+        interaction.
 \end{itemize}
 
 \subsection{Container Runtime}
-Container runtimes are an alternative to the VM that WSL 2 provides. These
-runtimes are typically developed for linux systems\footnote{Docker and Podman
-  are available for Windows but run in WSL 2 in the background}. Two notable
-container runtimes are \emph{Docker} and \emph{Podman}.
+Container runtimes are an alternative to the VM that WSL 2 provides.
+These runtimes are typically developed for linux systems\footnote{Docker and Podman are available for Windows but run in WSL 2 in the background}.
+Two notable container runtimes are \emph{Docker} and \emph{Podman}.
 
 \newpage
 
@@ -55,21 +50,19 @@ Follow these steps to set up a Zephyr development environment in the WSL.
 
 \begin{itemize}
   \item Install the \emph{J-Link Software and Documentation pack}.
-        Make sure to tick the \emph{Install USB Driver for J-Link (requires admin rights)}
-        checkbox during installation.
+        Make sure to tick the \emph{Install USB Driver for J-Link (requires admin rights)} checkbox during installation.
 
         \href{https://www.segger.com/downloads/jlink/JLink_Windows_x86_64.exe}{Download}
 
   \item Install \emph{PuTTY} or another application that can be used for serial
-      communication. Either download from \href{https://putty.org/}{here} or
-      install with \emph{winget}:
+        communication.
+        Either download from \href{https://putty.org/}{here} or install with \emph{winget}:
 
         \begin{lstlisting}
 winget install --id PuTTY.PuTTY -e
 \end{lstlisting}
 
-  \item Optional: install \href{https://aka.ms/terminal}{\emph{Windows Terminal}}
-      for a better terminal experience.
+  \item Optional: install \href{https://aka.ms/terminal}{\emph{Windows Terminal}} for a better terminal experience.
 
         \begin{lstlisting}
 winget install --id Microsoft.WindowsTerminal -e
@@ -83,19 +76,21 @@ wsl --install --no-distribution
 \end{lstlisting}
 
         \begin{infobox}
-          After installing WSL, make sure to reboot your machine. Otherwise the changes
-          will not be applied.
+          After installing WSL, make sure to reboot your machine.
+          Otherwise the changes will not be applied.
         \end{infobox}
 
         \begin{infobox}
-          If you see the help output of \mono{wsl} try without the
-          \mono{--no-distribution} switch. If you get an error try installing
-          the WSL from the Windows Store. This can be done with in the
-          \emph{Microsoft Store} or with \mono{winget}:
+          If you see the help output of \mono{wsl} try without the \mono{--no-distribution} switch.
+          If you get an error try installing the WSL from the Windows Store.
+          This can be done with in the \emph{Microsoft Store} or with \mono{winget}:
+
           \begin{lstlisting}
 winget install "Windows Subsystem for Linux"
 \end{lstlisting}
+
         \end{infobox}
+
   \item Create a folder for the environment and import the provided WSL image.
         \begin{lstlisting}
 mkdir D:\wslDistroStorage\@\imagename{}@
@@ -103,6 +98,7 @@ wsl --import @\imagename{}@ `
   D:\wslDistroStorage\@\imagename{}@ `
   "$env:USERPROFILE\Downloads\@\imagename{}@_wsl.tar.gz"
 \end{lstlisting}
+
   \item Open a shell inside the environment.
 
         \begin{lstlisting}
@@ -110,19 +106,15 @@ wsl --import @\imagename{}@ `
 \end{lstlisting}
 
         \begin{infobox}
-          In case you get a \emph{CreateProcessParseCommon:789: Failed to
-          translate D:\textbackslash} error the file system might not be
-          available from within WSL. Run the following command to list the
-          available file systems.
+          In case you get a \emph{CreateProcessParseCommon:789: Failed to translate D:\textbackslash} error the file system might not be available from within WSL.
+          Run the following command to list the available file systems.
 
           % \cmdinwsl{ls /mnt}
           \begin{lstlisting}
 @\cmdinwsl{}@ ls /mnt
 \end{lstlisting}
 
-          You can try mounting the missing file system
-          (\mono{D:\\} in this case) with the following
-          commands.
+          You can try mounting the missing file system (\mono{D:\\} in this case) with the following commands.
 
           \begin{lstlisting}
 @\cmdinwsl{}@ mkdir /mnt/d
@@ -130,9 +122,8 @@ wsl --import @\imagename{}@ `
 \end{lstlisting}
         \end{infobox}
         \begin{infobox}
-          If you are using \emph{Windows Terminal} you can conveniently open a
-          new tab with the environment. You might have to restart the terminal
-          for this option to appear.
+          If you are using \emph{Windows Terminal} you can conveniently open a new tab with the environment.
+          You might have to restart the terminal for this option to appear.
           \begin{center}
             \includegraphics[width=.5\paperwidth]{terminal_open_wsl_tab}
           \end{center}
@@ -144,8 +135,7 @@ wsl --import @\imagename{}@ `
 \section{Setup with a Container Runtime}
 
 \begin{itemize}
-  \item Install the \emph{J-Link Software and Documentation pack
-        (\href{https://www.segger.com/downloads/jlink}{Download})}.
+  \item Install the \emph{J-Link Software and Documentation pack (\href{https://www.segger.com/downloads/jlink}{Download})}.
   \item Install a serial terminal like \mono{minicom}.
   \item Install a container runtime (e.g. \emph{podman} or \emph{docker}).
   \item Load the image.
@@ -177,9 +167,8 @@ west build --pristine --board @\board{}@ --build-dir /tmp/build
 
 \subsection{Flash Sample}
 
-Start \emph{J-Flash Lite} and select the target device (\emph{\mcu{}}). In the next
-window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on
-\emph{Program Device}.
+Start \emph{J-Flash Lite} and select the target device (\emph{\mcu{}}).
+In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on \emph{Program Device}.
 
 % \begin{center}
 %   \includegraphics[width=.5\paperwidth]{jflashlite_1.png}
@@ -191,8 +180,8 @@ window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on
     \includegraphics[width=.5\paperwidth]{explorer_wsl_hex}
   \end{center}
 
-  It is possible, that the \emph{Linux} file system does not show up. If this is
-  the case, it can be accessed by manually entering its path in the explorer:
+  It is possible, that the \emph{Linux} file system does not show up.
+  If this is the case, it can be accessed by manually entering its path in the explorer:
   \mono{\\\\wsl\$}
   \begin{center}
     \includegraphics[width=.65\paperwidth]{win_file_explorer_wsl.png}
@@ -200,8 +189,7 @@ window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on
   Press \emph{enter} to access the WSL file system.
 \end{infobox}
 
-See Appendix~\ref{jlinkremote} for an alternative solution where \mono{west
-flash} can be used to flash the target.
+See Appendix~\ref{jlinkremote} for an alternative solution where \mono{west flash} can be used to flash the target.
 
 Open a serial terminal with e.g. PuTTY to see the log output:
 
@@ -209,8 +197,7 @@ Open a serial terminal with e.g. PuTTY to see the log output:
 plink.exe -sercfg 115200 -serial com3
 \end{lstlisting}
 
-You might have to press the reset button on your microcontroller board to start
-the program and print the message again.
+You might have to press the reset button on your microcontroller board to start the program and print the message again.
 
 \begin{infobox}
   Open the device manager to find the COM-port number.
@@ -229,19 +216,16 @@ The \emph{J-Link Remote Server} can be used to flash from within the container.
 Start the J-Link Remote Server on the host now.
 
 \begin{infobox}
-  If the J-Link Remote Server shows an error try using a different port (19020
-  is the default).
+  If the J-Link Remote Server shows an error try using a different port (19020 is the default).
 \end{infobox}
 
-Run the following command in a PowerShell to get the IP of the WSL network
-adapter.
+Run the following command in a PowerShell to get the IP of the WSL network adapter.
 
 \begin{lstlisting}
 @\cmdinwsl{}@ grep nameserver /etc/resolv.conf
 \end{lstlisting}
 
-Then run the following command to flash the board (replace the IP with the one
-from above).
+Then run the following command to flash the board (replace the IP with the one from above).
 
 \begin{lstlisting}
 west -v flash --runner jlink \
@@ -250,14 +234,12 @@ west -v flash --runner jlink \
 \end{lstlisting}
 
 \begin{infobox}
-  On Linux, add the \mono{--network="host"} argument to \mono{podman run}
-  and use \emph{127.0.0.1} as the IP address.
+  On Linux, add the \mono{--network="host"} argument to \mono{podman run} and use \emph{127.0.0.1} as the IP address.
 \end{infobox}
 
 \begin{infobox}
-  If you get a \emph{FAILED: Can not connect to J-Link via TCP/IP} error try
-  adding a firewall rule that allows inbound connections on the WSL network
-  adapter. To do that, run the following command in an admin PowerShell.
+  If you get a \emph{FAILED: Can not connect to J-Link via TCP/IP} error try adding a firewall rule that allows inbound connections on the WSL network adapter.
+  To do that, run the following command in an admin PowerShell.
 
   \begin{lstlisting}
 New-NetFirewallRule -DisplayName "WSL" -Direction Inbound `
@@ -290,5 +272,5 @@ podman build \
 % Local Variables:
 % TeX-output-dir: "build"
 % TeX-master: t
-% TeX-engine: luatex
+% TeX-engine: xetex
 % End:
