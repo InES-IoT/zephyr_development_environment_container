@@ -163,6 +163,11 @@ cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board @\board{}@ --build-dir /tmp/build
 \end{lstlisting}
 
+\begin{infobox}
+  When using WSL make sure to always include the \mono{--build-dir /tmp/build} argument.
+  If omitted the build system will compile the application in a \mono{build} folder in the current directory, which will be very slow when this directory is on the Windows file system (e.g. in \mono{/mnt/c/}).
+\end{infobox}
+
 % container runtime: make sure builddir accessible
 
 \subsection{Flash Sample}
