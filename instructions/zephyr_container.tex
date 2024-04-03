@@ -93,9 +93,9 @@ winget install "Windows Subsystem for Linux"
 
   \item Create a folder for the environment and import the provided WSL image.
         \begin{lstlisting}
-mkdir D:\wslDistroStorage\@\imagename{}@
+mkdir choose\your\path\wslDistroStorage\@\imagename{}@
 wsl --import @\imagename{}@ `
-  D:\wslDistroStorage\@\imagename{}@ `
+  your\path\wslDistroStorage\@\imagename{}@ `
   "$env:USERPROFILE\Downloads\@\imagename{}@_wsl.tar.zst"
 \end{lstlisting}
 
@@ -172,6 +172,7 @@ west build --pristine --board @\board{}@ --build-dir /tmp/build
 
 \subsection{Flash Sample}
 
+\subsubsection{J-Flash Lite}
 Start \emph{J-Flash Lite} and select the target device (\emph{\mcu{}}).
 In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on \emph{Program Device}.
 
@@ -209,6 +210,30 @@ You might have to press the reset button on your microcontroller board to start 
   \begin{center}
     \includegraphics[width=.5\paperwidth]{device_manager_com}
   \end{center}
+\end{infobox}
+
+\subsubsection{J-Link Command File}
+If a J-Link command file (usually located at \mono{../jlink/<name>.jlink}) is present in the project, it can be used to flash the binary from the command line.
+On UNIX based systems the command to flash a binary with a J-Link command file is:
+
+\begin{lstlisting}
+JLinkExe -CommandFile path/to/file.jlink
+\end{lstlisting}
+
+On Windows the path to the J-Link executable needs to be added to the path environment variable first:
+
+\begin{lstlisting}
+$env:Path += ";C:\Program Files\SEGGER\JLink_V796c"
+JLink -CommandFile path\to\file.jlink
+\end{lstlisting}
+
+\begin{infobox}
+  On your system, the path to the J-Link executable might be different.
+  Use the file explorer to find the right path.
+\end{infobox}
+
+\begin{infobox}
+  The above command to add the path is only for the current session. You can also add it permanently if you want.
 \end{infobox}
 
 \newpage
