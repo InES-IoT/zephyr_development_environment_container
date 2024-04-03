@@ -96,7 +96,7 @@ winget install "Windows Subsystem for Linux"
 mkdir D:\wslDistroStorage\@\imagename{}@
 wsl --import @\imagename{}@ `
   D:\wslDistroStorage\@\imagename{}@ `
-  "$env:USERPROFILE\Downloads\@\imagename{}@_wsl.tar.gz"
+  "$env:USERPROFILE\Downloads\@\imagename{}@_wsl.tar.zst"
 \end{lstlisting}
 
   \item Open a shell inside the environment.
@@ -140,7 +140,7 @@ wsl --import @\imagename{}@ `
   \item Install a container runtime (e.g. \emph{podman} or \emph{docker}).
   \item Load the image.
         \begin{lstlisting}
-podman load --input @\imagename{}@.tar.gz
+podman load --input @\imagename{}@.tar.zst
 \end{lstlisting}
   \item Run the container.
         \begin{lstlisting}
