@@ -17,10 +17,14 @@ podman build \
   --build-arg="ZEPHYR_VERSION=3.5.0" \
   --build-arg="SDK_VERSION=0.16.3" \
   --build-arg="MODULES=cmsis hal_stm32 lvgl segger" \
+  --build-arg="ADDTITIONAL_PYTHON_PACKAGES=imgtool" \
   . -t zephyr_stm32_v3.5.0
 ```
 
 If the `MODULES` argument is omitted all Zephyr modules will be installed.
+
+The `ADDITIONAL_PYTHON_PACKAGES` argument can be ommited. By default, only the
+packages `west`, `pyelftools`, and `pylink-square` will be installed.
 
 This works for SDK versions `0.16.0` and newer. Run the following to make the
 image build work for versions `0.14.0` to `0.15.2`.

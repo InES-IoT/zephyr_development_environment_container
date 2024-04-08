@@ -37,7 +37,8 @@ RUN apt-get clean -y && \
 	rm -rf /var/lib/apt/lists/*
 
 # Install python dependencies
-RUN pip install --break-system-packages west pyelftools pylink-square && \
+ARG ADDITIONAL_PYTHON_PACKAGES
+RUN pip install --break-system-packages west pyelftools pylink-square ${ADDITIONAL_PYTHON_PACKAGES} && \
 	echo 'export PATH=~/.local/bin:"$PATH"' >> ~/.bashrc
 
 # Init the Zephyr workspace
