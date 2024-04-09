@@ -11,6 +11,15 @@ This environment can either be used with a container runtime or the \emph{Window
 
 The \emph{Containerfile} can be found in Appendix~\ref{containerfile} for anyone interested.
 
+The containerized environment only works on x86 architectures.
+If your machine has a different architecture, you can get a native Zephyr installation by following the Zepyhr \href{https://docs.zephyrproject.org/\zephyrversion/develop/getting_started/index.html}{Getting Started Guide}.
+Beware, that you must ensure to checkout the right Zephyr version. Replace the \mono{west init \~/zehpyrproject} command from the Getting Started Guide by the following command.
+
+\begin{lstlisting}
+west init -m https://github.com/zephyrproject-rtos/zephyr \
+--mr v@\zephyrversion{}@ zephyr_@\zephyrversion{}@
+\end{lstlisting}
+
 \section{Technical Background (optional read)}
 
 \subsection{Necessity for WSL or Containers}
