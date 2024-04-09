@@ -8,23 +8,24 @@ As of now flashing is only supported with a J-Link debugger.
 
 ## Build Container Image
 
-This example builds a Zephyr v3.5.0 image for stm32 targets and includes the
-LVGL graphics library and the SEGGER SystemView and RTT libraries.
+This example builds a Zephyr v3.5.0 image for Nordic targets that includes
+`mbedtls` and `mcuboot` as well as the Segger *SystemView* and *RTT* libraries.
 
 ``` shell
 podman build \
   --file=Containerfile \
   --build-arg="ZEPHYR_VERSION=3.5.0" \
   --build-arg="SDK_VERSION=0.16.3" \
-  --build-arg="MODULES=cmsis hal_stm32 lvgl segger" \
-  --build-arg="ADDTITIONAL_PYTHON_PACKAGES=imgtool" \
-  . -t zephyr_stm32_v3.5.0
+  --build-arg="MODULES=cmsis hal_nordic mbedtls mcuboot segger" \
+  --build-arg="ADDITIONAL_PYTHON_PACKAGES=imgtool" \
+  --build-arg="ADDITIONAL_APT_PACKAGES=xxd binutils" \
+  . -t zephyr_nrf_v3.5.0
 ```
 
 If the `MODULES` argument is omitted all Zephyr modules will be installed.
 
-The `ADDITIONAL_PYTHON_PACKAGES` argument can be ommited. By default, only the
-packages `west`, `pyelftools`, and `pylink-square` will be installed.
+The `ADDITIONAL_PYTHON_PACKAGES` and `ADDITIONAL_APT_PACKAGES` arguments can be
+ommited but some default packages will still be installed.
 
 This works for SDK versions `0.16.0` and newer. Run the following to make the
 image build work for versions `0.14.0` to `0.15.2`.

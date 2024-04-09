@@ -4,6 +4,7 @@ FROM debian:12-slim
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install base packages
+ARG ADDITIONAL_APT_PACKAGES
 RUN apt-get -y update && \
 	apt-get -y upgrade && \
 	apt-get install --no-install-recommends -y \
@@ -13,7 +14,8 @@ RUN apt-get -y update && \
 	device-tree-compiler \
 	wget \
 	xz-utils \
-	ninja-build
+	ninja-build \
+	${ADDITIONAL_APT_PACKAGES}
 
 # Install Zephyr SDK
 ARG SDK_VERSION
