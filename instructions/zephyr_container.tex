@@ -83,7 +83,7 @@ wsl --install --no-distribution
         \begin{infobox}
           If you see the help output of \mono{wsl} try without the \mono{--no-distribution} switch.
           If you get an error try installing the WSL from the Windows Store.
-          This can be done with in the \emph{Microsoft Store} or with \mono{winget}:
+          This can either be done with the \emph{Microsoft Store} or with \mono{winget}:
 
           \begin{lstlisting}
 winget install "Windows Subsystem for Linux"
@@ -93,9 +93,9 @@ winget install "Windows Subsystem for Linux"
 
   \item Create a folder for the environment and import the provided WSL image.
         \begin{lstlisting}
-mkdir choose\your\path\wslDistroStorage\@\imagename{}@
+mkdir \path\to\wslDistroStorage\@\imagename{}@
 wsl --import @\imagename{}@ `
-  your\path\wslDistroStorage\@\imagename{}@ `
+  \path\to\wslDistroStorage\@\imagename{}@ `
   "$env:USERPROFILE\Downloads\@\imagename{}@_wsl.tar.zst"
 \end{lstlisting}
 
@@ -170,6 +170,8 @@ west build --pristine --board @\board{}@ --build-dir /tmp/build
 
 % container runtime: make sure builddir accessible
 
+\newpage
+
 \subsection{Flash Sample}
 
 \subsubsection{J-Flash Lite}
@@ -195,25 +197,8 @@ In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and
   Press \emph{enter} to access the WSL file system.
 \end{infobox}
 
-See Appendix~\ref{jlinkremote} for an alternative solution where \mono{west flash} can be used to flash the target.
-
-Open a serial terminal with e.g. PuTTY to see the log output:
-
-\begin{lstlisting}
-plink -sercfg 115200 -serial com3
-\end{lstlisting}
-
-You might have to press the reset button on your microcontroller board to start the program and print the message again.
-
-\begin{infobox}
-  Open the device manager to find the COM-port number.
-  \begin{center}
-    \includegraphics[width=.5\paperwidth]{device_manager_com}
-  \end{center}
-\end{infobox}
-
 \subsubsection{J-Link Command File}
-If a J-Link command file (usually located at \mono{../jlink/<name>.jlink}) is present in the project, it can be used to flash the binary from the command line.
+If a J-Link command file (\mono{*.jlink}) is present in the project, it can be used to flash the binary from the command line.
 On UNIX based systems the command to flash a binary with a J-Link command file is:
 
 \begin{lstlisting}
@@ -236,52 +221,28 @@ JLink -CommandFile path\to\file.jlink
   The above command to add the path is only for the current session. You can also add it permanently if you want.
 \end{infobox}
 
+\subsection{Test Flashed Sample}
+
+Open a serial terminal with e.g. PuTTY to see the log output:
+
+\begin{lstlisting}
+plink -sercfg 115200 -serial com3
+\end{lstlisting}
+
+You might have to press the reset button on your microcontroller board to start the program and print the message again.
+
+\begin{infobox}
+  Open the device manager to find the COM-port number.
+  \begin{center}
+    \includegraphics[width=.5\paperwidth]{device_manager_com}
+  \end{center}
+\end{infobox}
+
 \newpage
 
 \appendix
 
-\section{Alternative to J-Flash Lite}\label{jlinkremote}
-
-The \emph{J-Link Remote Server} can be used to flash from within the container.
-Start the J-Link Remote Server on the host now.
-
-\begin{infobox}
-  If the J-Link Remote Server shows an error try using a different port (19020 is the default).
-\end{infobox}
-
-Run the following command in a PowerShell to get the IP of the WSL network adapter.
-
-\begin{lstlisting}
-@\cmdinwsl{}@ grep nameserver /etc/resolv.conf
-\end{lstlisting}
-
-Then run the following command to flash the board (replace the IP with the one from above).
-
-\begin{lstlisting}
-west -v flash --runner jlink \
-  --tool-opt='-ip 172.21.160.1:19020' \
-  --build-dir /tmp/build
-\end{lstlisting}
-
-\begin{infobox}
-  On Linux, add the \mono{--network="host"} argument to \mono{podman run} and use \emph{127.0.0.1} as the IP address.
-\end{infobox}
-
-\begin{infobox}
-  If you get a \emph{FAILED: Can not connect to J-Link via TCP/IP} error try adding a firewall rule that allows inbound connections on the WSL network adapter.
-  To do that, run the following command in an admin PowerShell.
-
-  \begin{lstlisting}
-New-NetFirewallRule -DisplayName "WSL" -Direction Inbound `
- -InterfaceAlias "vEthernet (WSL)" -Action Allow
-\end{lstlisting}
-
-  Firewall rules can also be managed by running \mono{wf.msc} in a PowerShell.
-\end{infobox}
-
-\newpage
-
-\newgeometry{margin=2cm}
+\newgeometry{margin=1cm}
 \fancyfoot{}
 
 \section{Containerfile}\label{containerfile}
