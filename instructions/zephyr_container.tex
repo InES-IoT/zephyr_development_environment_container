@@ -270,6 +270,19 @@ You might have to press the reset button on your microcontroller board to start 
 \newgeometry{margin=1cm}
 \fancyfoot{}
 
+\section{Troubleshooting}
+\begin{itemize}
+  \item If running the Container fails after importing the image, you might need to use \mono{localhost} in the run command:
+  \begin{lstlisting}
+  podman run --rm -it \
+  -v /path/to/project:/root/dev \
+  localhost/@\imagename{}@
+  \end{lstlisting}
+  \item If the WSL distro is not found after importing it, you might need to restart your system.
+\end{itemize}
+
+\newpage
+
 \section{Containerfile}\label{containerfile}
 
 \lstinputlisting[basicstyle=\ttfamily\scriptsize]{../Containerfile}
