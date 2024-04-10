@@ -217,6 +217,8 @@ In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and
   Press \emph{enter} to access the WSL file system.
 \end{infobox}
 
+\newpage
+
 \subsubsection{J-Link Command File}
 If a J-Link command file (\mono{*.jlink}) is present in the project, it can be used to flash the binary from the command line.
 On UNIX based systems the command to flash a binary with a J-Link command file is:
@@ -228,13 +230,12 @@ JLinkExe -CommandFile path/to/file.jlink
 On Windows the path to the J-Link executable needs to be added to the path environment variable first:
 
 \begin{lstlisting}
-$env:Path += ";C:\Program Files\SEGGER\JLink_V796c"
+$env:Path += ";C:\Program Files\SEGGER\JLink_<version>"
 JLink -CommandFile path\to\file.jlink
 \end{lstlisting}
 
 \begin{infobox}
-  On your system, the path to the J-Link executable might be different.
-  Use the file explorer to find the right path.
+  Use the file explorer to get the right path to the JLink executable.
 \end{infobox}
 
 \begin{infobox}
