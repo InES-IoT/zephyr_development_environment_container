@@ -193,8 +193,11 @@ Run the following inside the environment to compile the blinky sample.
 \newpage
 
 \subsection{Flash Sample}
+There are two main ways to flash an application to the target.
+When first setting up the environment and testing with the blinky sample, you must always use the way described in \autoref{sec:jflash}.
+The other way is only applicable if the project provides a \mono{<*.jlink>} file.
 
-\subsubsection{J-Flash Lite}
+\subsubsection{J-Flash Lite}\label{sec:jflash}
 Start \emph{J-Flash Lite} and select the target device (\emph{\mcu{}}).
 In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on \emph{Program Device}.
 
