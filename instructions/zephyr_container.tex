@@ -169,14 +169,14 @@ Run the following inside the environment to compile the blinky sample.
 \begin{itemize}
   \item For \textbf{WSL}:
   \begin{lstlisting}
-  cd ~/zephyrproject/zephyr/samples/basic/blinky/
-  west build --pristine --board @\board{}@ --build-dir /tmp/build
-  \end{lstlisting}
+cd ~/zephyrproject/zephyr/samples/basic/blinky/
+west build --pristine --board @\board{}@ --build-dir /tmp/build
+\end{lstlisting}
   \item For \textbf{Podman/Docker}:
   \begin{lstlisting}
-  cd ~/zephyrproject/zephyr/samples/basic/blinky/
-  west build --pristine --board @\board{}@ --build-dir ~/dev/build
-  \end{lstlisting}
+cd ~/zephyrproject/zephyr/samples/basic/blinky/
+west build --pristine --board @\board{}@ --build-dir ~/dev/build
+\end{lstlisting}
 \end{itemize}
 
 \begin{infobox}
@@ -193,6 +193,7 @@ Run the following inside the environment to compile the blinky sample.
 \newpage
 
 \subsection{Flash Sample}
+
 There are two main ways to flash an application to the target.
 When first setting up the environment and testing with the blinky sample, you must always use the way described in \autoref{sec:jflash}.
 The other way is only applicable if the project provides a \mono{<*.jlink>} file.
@@ -274,10 +275,10 @@ You might have to press the reset button on your microcontroller board to start 
 \begin{itemize}
   \item If running the Container fails after importing the image, you might need to use \mono{localhost} in the run command:
   \begin{lstlisting}
-  podman run --rm -it \
+podman run --rm -it \
   -v /path/to/project:/root/dev \
   localhost/@\imagename{}@
-  \end{lstlisting}
+\end{lstlisting}
   \item If the WSL distro is not found after importing it, you might need to restart your system.
 \end{itemize}
 
