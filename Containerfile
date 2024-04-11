@@ -4,7 +4,7 @@ FROM debian:12-slim
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install base packages
-ARG ADDITIONAL_APT_PACKAGES
+ARG ADDITIONAL_APT_PACKAGES=""
 RUN apt-get -y update && \
 	apt-get -y upgrade && \
 	apt-get install --no-install-recommends -y \
@@ -39,14 +39,14 @@ RUN apt-get clean -y && \
 	rm -rf /var/lib/apt/lists/*
 
 # Install python dependencies
-ARG ADDITIONAL_PYTHON_PACKAGES
+ARG ADDITIONAL_PYTHON_PACKAGES=""
 RUN pip install --break-system-packages west pyelftools pylink-square ${ADDITIONAL_PYTHON_PACKAGES} && \
 	echo 'export PATH=~/.local/bin:"$PATH"' >> ~/.bashrc
 
 # Init the Zephyr workspace
 ARG ZEPHYR_VERSION
 RUN test -n "${ZEPHYR_VERSION}" || (echo "ZEPHYR_VERSION build argument not set" && false)
-ARG MODULES
+ARG MODULES=""
 WORKDIR /root/zephyrproject
 RUN git clone --branch v${ZEPHYR_VERSION} --depth=1 \
 	https://github.com/zephyrproject-rtos/zephyr && \

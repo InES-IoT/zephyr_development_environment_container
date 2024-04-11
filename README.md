@@ -25,7 +25,7 @@ podman build \
 If the `MODULES` argument is omitted all Zephyr modules will be installed.
 
 The `ADDITIONAL_PYTHON_PACKAGES` and `ADDITIONAL_APT_PACKAGES` arguments can be
-ommited but some default packages will still be installed.
+omitted but some default packages will still be installed.
 
 This works for SDK versions `0.16.0` and newer. Run the following to make the
 image build work for versions `0.14.0` to `0.15.2`.
