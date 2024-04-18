@@ -22,7 +22,7 @@ ifndef IMAGENAME
 	$(error IMAGENAME not set)
 endif
 	# run twice to resolve references
-	for run in {1..2}; do \
+	for run in $(shell seq 1 2); do \
 		xelatex --halt-on-error --output-directory=./${BUILD_DIR} "\
 \def\zephyrversion {${ZEPHYRVERSION}} \
 \def\sdkversion {${SDKVERSION}} \
