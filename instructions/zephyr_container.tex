@@ -272,13 +272,19 @@ You might have to press the reset button on your microcontroller board to start 
 
 \section{Troubleshooting}
 \begin{itemize}
-  \item If running the Container fails after importing the image, you might need to use \mono{localhost} in the run command:
+  \item \textbf{If running the Container fails after importing} -> you might need to use \mono{localhost} in the run command:
   \begin{lstlisting}
 podman run --rm -it \
-  -v /path/to/project:/root/dev \
-  localhost/@\imagename{}@
+-v /path/to/project:/root/dev \
+localhost/@\imagename{}@
 \end{lstlisting}
-  \item If the WSL distro is not found after importing it, you might need to restart your system.
+  \item \textbf{The WSL distro is not found after importing} -> you might need to restart your system.
+  \item \textbf{The debug probe keeps announcing itself as mass storage device} -> disable the mass storage of the probe.
+  For JLink as follows:
+  \begin{lstlisting}
+JLink
+msddisable
+\end{lstlisting}
 \end{itemize}
 
 \newpage
