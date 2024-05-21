@@ -40,7 +40,7 @@ sed -i "s/\.tar\.xz/\.tar\.gz/" Containerfile
 podman save zephyr_stm32_v3.5.0 | zstd -T0 -19 > zephyr_stm32_v3.5.0.tar.zst
 ```
 
-Use `gzip` if `zstd` is not available.
+If `zstd` is not available, use `gzip` and change the file ending to `.tar.gz`.
 
 ## Import Container Image
 
