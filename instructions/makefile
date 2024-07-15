@@ -41,4 +41,4 @@ ${BUILD_DIR} ${LATEXINDENT_DIR}:
 
 .PHONY: clean
 clean:
-	rm -r ${BUILD_DIR}
+	rm -rf ${BUILD_DIR}
