@@ -28,7 +28,7 @@ The `ADDITIONAL_PYTHON_PACKAGES` and `ADDITIONAL_APT_PACKAGES` arguments can be
 omitted but some default packages will still be installed.
 
 This works for SDK versions `0.16.0` and newer. Run the following to make the
-image build work for versions `0.14.0` to `0.15.2`.
+image build work for versions `0.14.2` to `0.15.2`.
 
 ``` shell
 sed -i "s/\.tar\.xz/\.tar\.gz/" Containerfile
