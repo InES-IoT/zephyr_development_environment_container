@@ -5,7 +5,7 @@ LATEXINDENT_DIR = /tmp/latexindent
 .PHONY: all
 all: $(addprefix ${BUILD_DIR}/,$(subst .tex,.pdf,${SRC}))
 
-${BUILD_DIR}/%.pdf: %.tex img/* | ${BUILD_DIR}
+${BUILD_DIR}/%.pdf: %.tex img/* common.tex | ${BUILD_DIR}
 ifndef ZEPHYRVERSION
 	$(error ZEPHYRVERSION not set)
 endif
