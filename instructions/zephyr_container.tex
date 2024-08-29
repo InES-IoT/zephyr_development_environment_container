@@ -199,12 +199,17 @@ When first setting up the environment and testing with the blinky sample, you mu
 The other way is only applicable if the project provides a \mono{.jlink} file.
 
 \subsubsection{J-Flash Lite}\label{sec:jflash}
-Start \emph{J-Flash Lite} and select the target device (\texttt{\mcu}).
-In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on \emph{Program Device}.
+Start \emph{J-Flash Lite}, select the target device (\texttt{\mcu}), and make sure the \emph{Internal flash} flash bank is selected.
 
-% \begin{center}
-%   \includegraphics[width=.5\paperwidth]{jflashlite_1.png}
-% \end{center}
+\begin{center}
+  \begin{tikzpicture}
+    \node [anchor=south west] {\includegraphics[width=8cm]{jflashlite.png}};
+    \draw (7.39,7.1) [red,ultra thick] circle[radius=.4];
+    \draw (.84,3.4) [red,ultra thick] circle[radius=.4];
+  \end{tikzpicture}
+\end{center}
+
+In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and click on \emph{Program Device}.
 
 \begin{infobox}
   The WSL file system can be accessed in the explorer.
