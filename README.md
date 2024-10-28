@@ -71,3 +71,7 @@ wsl -d zephyr
 # Instructions for Users
 
 see [Instructions](./instructions)
+
+# Literature
+
+- https://interrupt.memfault.com/blog/comparing-fw-dev-envs
