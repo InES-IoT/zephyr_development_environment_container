@@ -37,7 +37,7 @@ sed -i "s/\.tar\.xz/\.tar\.gz/" Containerfile
 ## Export Container Image
 
 ``` shell
-podman save zephyr_stm32_v3.5.0 | zstd -T0 -19 > zephyr_stm32_v3.5.0.tar.zst
+podman save zephyr_nrf_v3.5.0 | zstd -T0 -19 > zephyr_nrf_v3.5.0.tar.zst
 ```
 
 If `zstd` is not available, use `gzip` and change the file ending to `.tar.gz`.
@@ -45,7 +45,7 @@ If `zstd` is not available, use `gzip` and change the file ending to `.tar.gz`.
 ## Import Container Image
 
 ``` shell
-podman load --input zephyr_stm32_v3.5.0.tar.zst
+podman load --input zephyr_nrf_v3.5.0.tar.zst
 ```
 
 ## Use Container as WSL2 Distro
@@ -55,8 +55,8 @@ See https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro for referenc
 Export file system of container:
 
 ``` shell
-cid=$(podman create zephyr_stm32_v3.5.0)
-podman export $cid | zstd -T0 -19 > zephyr_stm32_v3.5.0_wsl.tar.zst
+cid=$(podman create zephyr_nrf_v3.5.0)
+podman export $cid | zstd -T0 -19 > zephyr_nrf_v3.5.0_wsl.tar.zst
 podman rm $cid
 ```
 
