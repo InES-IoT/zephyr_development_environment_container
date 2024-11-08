@@ -58,11 +58,11 @@ RUN git clone --branch v${ZEPHYR_VERSION} --depth=1 \
 RUN ln -s $(which true) /usr/local/bin/udevadm
 
 # Get and install the J-Link Software and Documentation Pack
-RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
+RUN MACHINE=$(bash -c 'uname -m') && \
 	wget --quiet --post-data 'accept_license_agreement=accepted&non_emb_ctr=confirmed' \
-	https://www.segger.com/downloads/jlink/JLink_Linux_${HOSTTYPE}.deb && \
-	dpkg --force-depends --install JLink_Linux_${HOSTTYPE}.deb && \
-	rm JLink_Linux_${HOSTTYPE}.deb
+	https://www.segger.com/downloads/jlink/JLink_Linux_${MACHINE}.deb && \
+	dpkg --force-depends --install JLink_Linux_${MACHINE}.deb && \
+	rm JLink_Linux_${MACHINE}.deb
 
 WORKDIR /root/dev
 CMD ["bash"]
