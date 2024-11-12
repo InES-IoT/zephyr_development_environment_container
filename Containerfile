@@ -21,14 +21,14 @@ RUN apt-get -y update && \
 ARG SDK_VERSION
 RUN test -n "${SDK_VERSION}" || (echo "SDK_VERSION build argument not set" && false)
 WORKDIR /opt/toolchains
-RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
+RUN HOST_ARCHITECTURE=$(uname -m) && \
 	wget --quiet -O sdk.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/\
-v${SDK_VERSION}/zephyr-sdk-${SDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.xz && \
+v${SDK_VERSION}/zephyr-sdk-${SDK_VERSION}_linux-${HOST_ARCHITECTURE}_minimal.tar.xz && \
 	tar -xf sdk.tar.xz && \
 	rm sdk.tar.xz && \
 	cd zephyr-sdk-${SDK_VERSION} && \
 	wget --quiet -O toolchain.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/\
-v${SDK_VERSION}/toolchain_linux-${HOSTTYPE}_arm-zephyr-eabi.tar.xz && \
+v${SDK_VERSION}/toolchain_linux-${HOST_ARCHITECTURE}_arm-zephyr-eabi.tar.xz && \
 	tar -xf toolchain.tar.xz && \
 	./setup.sh -t arm-zephyr-eabi -c && \
 	rm toolchain.tar.xz zephyr-*.sh
@@ -58,11 +58,11 @@ RUN git clone --branch v${ZEPHYR_VERSION} --depth=1 \
 RUN ln -s $(which true) /usr/local/bin/udevadm
 
 # Get and install the J-Link Software and Documentation Pack
-RUN HOSTTYPE=$(bash -c 'echo ${HOSTTYPE}') && \
+RUN HOST_ARCHITECTURE=$(uname -m) && \
 	wget --quiet --post-data 'accept_license_agreement=accepted&non_emb_ctr=confirmed' \
-	https://www.segger.com/downloads/jlink/JLink_Linux_${HOSTTYPE}.deb && \
-	dpkg --force-depends --install JLink_Linux_${HOSTTYPE}.deb && \
-	rm JLink_Linux_${HOSTTYPE}.deb
+	https://www.segger.com/downloads/jlink/JLink_Linux_${HOST_ARCHITECTURE}.deb && \
+	dpkg --force-depends --install JLink_Linux_${HOST_ARCHITECTURE}.deb && \
+	rm JLink_Linux_${HOST_ARCHITECTURE}.deb
 
 WORKDIR /root/dev
 CMD ["bash"]
