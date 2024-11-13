@@ -59,7 +59,7 @@ RUN ln -s $(which true) /usr/local/bin/udevadm
 
 # Get and install the J-Link Software and Documentation Pack
 RUN HOST_ARCHITECTURE=$(uname -m) && \
-	if [ "${HOST_ARCHITECTURE}" == "aarch64" ]; then HOST_ARCHITECTURE="arm64"; fi && \
+	if [ "${HOST_ARCHITECTURE}" = "aarch64" ]; then HOST_ARCHITECTURE="arm64"; fi && \
 	wget --quiet --post-data 'accept_license_agreement=accepted&non_emb_ctr=confirmed' \
 	https://www.segger.com/downloads/jlink/JLink_Linux_${HOST_ARCHITECTURE}.deb && \
 	dpkg --force-depends --install JLink_Linux_${HOST_ARCHITECTURE}.deb && \
