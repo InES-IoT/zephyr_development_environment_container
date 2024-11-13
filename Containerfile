@@ -23,12 +23,12 @@ RUN test -n "${SDK_VERSION}" || (echo "SDK_VERSION build argument not set" && fa
 WORKDIR /opt/toolchains
 RUN HOST_ARCHITECTURE=$(uname -m) && \
 	wget --quiet -O sdk.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/\
-v${SDK_VERSION}/zephyr-sdk-${SDK_VERSION}_linux-${HOST_ARCHITECTURE}_minimal.tar.xz && \
+v"${SDK_VERSION}"/zephyr-sdk-"${SDK_VERSION}"_linux-"${HOST_ARCHITECTURE}"_minimal.tar.xz && \
 	tar -xf sdk.tar.xz && \
 	rm sdk.tar.xz && \
-	cd zephyr-sdk-${SDK_VERSION} && \
+	cd zephyr-sdk-"${SDK_VERSION}" && \
 	wget --quiet -O toolchain.tar.xz https://github.com/zephyrproject-rtos/sdk-ng/releases/download/\
-v${SDK_VERSION}/toolchain_linux-${HOST_ARCHITECTURE}_arm-zephyr-eabi.tar.xz && \
+v"${SDK_VERSION}"/toolchain_linux-"${HOST_ARCHITECTURE}"_arm-zephyr-eabi.tar.xz && \
 	tar -xf toolchain.tar.xz && \
 	./setup.sh -t arm-zephyr-eabi -c && \
 	rm toolchain.tar.xz zephyr-*.sh
@@ -41,7 +41,7 @@ RUN apt-get clean -y && \
 # Install python dependencies
 ARG ADDITIONAL_PYTHON_PACKAGES=""
 RUN pip install --break-system-packages west pyelftools pylink-square ${ADDITIONAL_PYTHON_PACKAGES} && \
-	echo 'export PATH=~/.local/bin:"$PATH"' >> ~/.bashrc
+	echo "export PATH=~/.local/bin:\"$PATH\"" >> ~/.bashrc
 
 # Init the Zephyr workspace
 ARG ZEPHYR_VERSION
@@ -52,10 +52,10 @@ RUN git clone --branch v${ZEPHYR_VERSION} --depth=1 \
 	https://github.com/zephyrproject-rtos/zephyr && \
 	west init --local zephyr && \
 	west update --narrow --fetch-opt=--depth=1 ${MODULES} && \
-	echo 'source '$(pwd)'/zephyr/zephyr-env.sh' >> ~/.bashrc
+	echo "source \"$(pwd)/zephyr/zephyr-env.sh\"" >> ~/.bashrc
 
 # Hack to make J-Link deb installation work
-RUN ln -s $(which true) /usr/local/bin/udevadm
+RUN ln -s "$(which true)" /usr/local/bin/udevadm
 
 # Get and install the J-Link Software and Documentation Pack
 RUN HOST_ARCHITECTURE=$(uname -m) && \
