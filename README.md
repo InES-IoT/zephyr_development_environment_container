@@ -74,4 +74,5 @@ see [Instructions](./instructions)
 
 # Literature
 
+- https://interrupt.memfault.com/blog/wsl2-for-firmware-development
 - https://interrupt.memfault.com/blog/comparing-fw-dev-envs
