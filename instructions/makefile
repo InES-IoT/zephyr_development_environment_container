@@ -1,6 +1,5 @@
 SRC = zephyr_container.tex
 BUILD_DIR = build
-LATEXINDENT_DIR = /tmp/latexindent
 
 .PHONY: all
 all: $(addprefix ${BUILD_DIR}/,$(subst .tex,.pdf,${SRC}))
@@ -32,11 +31,7 @@ endif
 \input{$<}"; \
 	done
 
-.PHONY: format
-format: | ${LATEXINDENT_DIR}
-	latexindent -l -w -s -m -c $| *.tex
-
-${BUILD_DIR} ${LATEXINDENT_DIR}:
+${BUILD_DIR}:
 	mkdir -p $@
 
 .PHONY: clean

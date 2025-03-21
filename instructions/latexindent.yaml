@@ -1,9 +1,0 @@
-defaultIndent: "  "
-removeTrailingWhitespace: 1
-verbatimEnvironments:
-    code: 1
-verbatimCommands:
-    mono: 1
-modifyLineBreaks:
-    oneSentencePerLine:
-        manipulateSentences: 1
