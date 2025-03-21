@@ -9,21 +9,21 @@ The following instructions explain how to configure VS Code for Zephyr developme
     If you build your project in \mono{/tmp/build}, clangd will not find the database file.
     Run the following command to create a link to the compilation database file such that clangd can find it (adapt the paths as needed).
 
-\begin{lstlisting}
+\begin{monobox}
 @\cmdinwsl{}@ ln -s `
   /tmp/build/compile_commands.json `
   /mnt/c/Users/neye/Downloads/zephyr_labs/
-\end{lstlisting}
+\end{monobox}
   \item Create a file named \mono{.clangd} in the same location where you created the link to the compilation database file.
     Copy the following to this file (make sure that the indentation is the same as here).
 
-\begin{lstlisting}
+\begin{monobox}
 CompileFlags:
   Remove:
     - '-fno-printf-return-value'
     - '-fno-reorder-functions'
     - '-mfp16-format=ieee'
-\end{lstlisting}
+\end{monobox}
   \item Install the \href{https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd}{LLVM clangd} extension
   \item Open the project folder via \emph{File} $\rightarrow$ \emph{Open Folder...} $\rightarrow$ \mono{/mnt/c/...}
 \end{itemize}

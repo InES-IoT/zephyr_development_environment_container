@@ -5,13 +5,13 @@
   \item Install a serial terminal like \mono{minicom}.
   \item Install a container runtime (e.g. \emph{podman} or \emph{docker}).
   \item Load the image.
-        \begin{lstlisting}
+        \begin{monobox}
 podman load --input @\imagename{}@.tar.zst
-\end{lstlisting}
+\end{monobox}
   \item Run the container.
-        \begin{lstlisting}
+        \begin{monobox}
 podman run --rm -it \
   -v /path/to/project:/root/dev \
   @\imagename{}@
-\end{lstlisting}
+\end{monobox}
 \end{itemize}

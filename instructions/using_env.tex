@@ -6,15 +6,15 @@ Run the following inside the environment to compile the blinky sample.
 
 \begin{itemize}
   \item For \textbf{WSL}:
-  \begin{lstlisting}
+  \begin{monobox}
 cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board @\board{}@ --build-dir /tmp/build
-\end{lstlisting}
+\end{monobox}
   \item For \textbf{Podman/Docker}:
-  \begin{lstlisting}
+  \begin{monobox}
 cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board @\board{}@ --build-dir ~/dev/build
-\end{lstlisting}
+\end{monobox}
 \end{itemize}
 
 \begin{infobox}
@@ -70,16 +70,16 @@ In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and
 If a J-Link command file (\mono{.jlink}) is present in the project, it can be used to flash the binary from the command line.
 On UNIX based systems the command to flash a binary with a J-Link command file is:
 
-\begin{lstlisting}
+\begin{monobox}
 JLinkExe -CommandFile path/to/file.jlink
-\end{lstlisting}
+\end{monobox}
 
 On Windows the path to the J-Link executable needs to be added to the path environment variable first:
 
-\begin{lstlisting}
+\begin{monobox}
 $env:Path += ";C:\Program Files\SEGGER\JLink_<version>"
 JLink -CommandFile path\to\file.jlink
-\end{lstlisting}
+\end{monobox}
 
 \begin{infobox}
   Use the file explorer to get the right path to the JLink executable.
@@ -94,9 +94,9 @@ JLink -CommandFile path\to\file.jlink
 
 Open a serial terminal with e.g. PuTTY to see the log output:
 
-\begin{lstlisting}
+\begin{monobox}
 plink -sercfg 115200 -serial com3
-\end{lstlisting}
+\end{monobox}
 
 You might have to press the reset button on your microcontroller board to start the program and print the message again.
 
