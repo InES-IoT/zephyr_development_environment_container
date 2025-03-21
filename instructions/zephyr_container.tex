@@ -39,10 +39,10 @@ WSL 2 on Windows 11 can retain up to 95 \% of the performance of a native Linux 
 
 \begin{itemize}
   \item Seamless integration in Windows.
-        Files contained within the WSL can be accessed directly via the regular Windows file explorer.
+    Files contained within the WSL can be accessed directly via the regular Windows file explorer.
   \item After creating a WSL image, it can be started directly in the file explorer.
   \item The VM setup is seamless and executed automatically without user
-        interaction.
+    interaction.
 \end{itemize}
 
 \subsection{Container Runtime}
@@ -58,13 +58,13 @@ Follow these steps to set up a Zephyr development environment in the WSL.
 
 \begin{itemize}
   \item Install the \emph{J-Link Software and Documentation pack}.
-        Make sure to tick the \emph{Install legacy USB Driver for J-Link (requires admin rights)} checkbox during installation.
+    Make sure to tick the \emph{Install legacy USB Driver for J-Link (requires admin rights)} checkbox during installation.
 
-        \href{https://www.segger.com/downloads/jlink/JLink_Windows_x86_64.exe}{Download}
+    \href{https://www.segger.com/downloads/jlink/JLink_Windows_x86_64.exe}{Download}
 
   \item Install \emph{PuTTY} or another application that can be used for serial
-        communication.
-        Either download from \href{https://putty.org/}{here} or install with \emph{winget}:
+    communication.
+    Either download from \href{https://putty.org/}{here} or install with \emph{winget}:
 
         \begin{lstlisting}
 winget install --id PuTTY.PuTTY -e
@@ -83,21 +83,21 @@ winget install --id Microsoft.WindowsTerminal -e
 wsl --install --no-distribution
 \end{lstlisting}
 
-        \begin{infobox}
-          After installing WSL, make sure to reboot your machine.
-          Otherwise the changes will not be applied.
-        \end{infobox}
+    \begin{infobox}
+      After installing WSL, make sure to reboot your machine.
+      Otherwise the changes will not be applied.
+    \end{infobox}
 
-        \begin{infobox}
-          If you see the help output of \mono{wsl} try without the \mono{--no-distribution} switch.
-          If you get an error try installing the WSL from the Windows Store.
-          This can either be done with the \emph{Microsoft Store} GUI or with \mono{winget}:
+    \begin{infobox}
+      If you see the help output of \mono{wsl} try without the \mono{--no-distribution} switch.
+      If you get an error try installing the WSL from the Windows Store.
+      This can either be done with the \emph{Microsoft Store} GUI or with \mono{winget}:
 
           \begin{lstlisting}
 winget install "Windows Subsystem for Linux"
 \end{lstlisting}
 
-        \end{infobox}
+    \end{infobox}
 
   \item Create a folder for the environment and import the provided WSL image.
         \begin{lstlisting}
@@ -113,29 +113,29 @@ wsl --import @\imagename{}@ `
 @\cmdinwsl{}@
 \end{lstlisting}
 
-        \begin{infobox}
-          In case you get a \emph{CreateProcessParseCommon:789: Failed to translate D:\textbackslash} error the file system might not be available from within WSL.
-          Run the following command to list the available file systems.
+    \begin{infobox}
+      In case you get a \emph{CreateProcessParseCommon:789: Failed to translate D:\textbackslash} error the file system might not be available from within WSL.
+      Run the following command to list the available file systems.
 
-          % \cmdinwsl{ls /mnt}
+      % \cmdinwsl{ls /mnt}
           \begin{lstlisting}
 @\cmdinwsl{}@ ls /mnt
 \end{lstlisting}
 
-          You can try mounting the missing file system (\mono{D:\\} in this case) with the following commands.
+      You can try mounting the missing file system (\mono{D:\\} in this case) with the following commands.
 
           \begin{lstlisting}
 @\cmdinwsl{}@ mkdir /mnt/d
 @\cmdinwsl{}@ mount -t drvfs D: /mnt/d
 \end{lstlisting}
-        \end{infobox}
-        \begin{infobox}
-          If you are using \emph{Windows Terminal} you can conveniently open a new tab with the environment.
-          You might have to restart the terminal for this option to appear.
-          \begin{center}
-            \includegraphics[width=.5\paperwidth]{terminal_open_wsl_tab}
-          \end{center}
-        \end{infobox}
+    \end{infobox}
+    \begin{infobox}
+      If you are using \emph{Windows Terminal} you can conveniently open a new tab with the environment.
+      You might have to restart the terminal for this option to appear.
+      \begin{center}
+        \includegraphics[width=.5\paperwidth]{terminal_open_wsl_tab}
+      \end{center}
+    \end{infobox}
 \end{itemize}
 
 \newpage
@@ -280,19 +280,19 @@ You might have to press the reset button on your microcontroller board to start 
 The following instructions explain how to configure VS Code for Zephyr development inside a WSL distro.
 
 \begin{itemize}
-\item Install the \href{https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl}{WSL extension}
-\item Connect to WSL distro using the blue button on the bottom left (\emph{Connect to WSL using Distro...})
-\item Clangd searches for a compilation database file (\mono{compile_commands.json}) in the parent directories of source files and also in subdirectories named \mono{build} (see \href{https://clangd.llvm.org/installation#project-setup}{documentation}).
-  If you build your project in \mono{/tmp/build}, clangd will not find the database file.
-  Run the following command to create a link to the compilation database file such that clangd can find it (adapt the paths as needed).
+  \item Install the \href{https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl}{WSL extension}
+  \item Connect to WSL distro using the blue button on the bottom left (\emph{Connect to WSL using Distro...})
+  \item Clangd searches for a compilation database file (\mono{compile_commands.json}) in the parent directories of source files and also in subdirectories named \mono{build} (see \href{https://clangd.llvm.org/installation#project-setup}{documentation}).
+    If you build your project in \mono{/tmp/build}, clangd will not find the database file.
+    Run the following command to create a link to the compilation database file such that clangd can find it (adapt the paths as needed).
 
 \begin{lstlisting}
 @\cmdinwsl{}@ ln -s `
   /tmp/build/compile_commands.json `
   /mnt/c/Users/neye/Downloads/zephyr_labs/
 \end{lstlisting}
-\item Create a file named \mono{.clangd} in the same location where you created the link to the compilation database file.
-  Copy the following to this file (make sure that the indentation is the same as here).
+  \item Create a file named \mono{.clangd} in the same location where you created the link to the compilation database file.
+    Copy the following to this file (make sure that the indentation is the same as here).
 
 \begin{lstlisting}
 CompileFlags:
@@ -301,28 +301,28 @@ CompileFlags:
     - '-fno-reorder-functions'
     - '-mfp16-format=ieee'
 \end{lstlisting}
-\item Install the \href{https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd}{LLVM clangd} extension
-\item Open the project folder via \emph{File} $\rightarrow$ \emph{Open Folder...} $\rightarrow$ \mono{/mnt/c/...}
+  \item Install the \href{https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd}{LLVM clangd} extension
+  \item Open the project folder via \emph{File} $\rightarrow$ \emph{Open Folder...} $\rightarrow$ \mono{/mnt/c/...}
 \end{itemize}
 
 \section{Troubleshooting}
 
 \begin{itemize}
-\item {\bf Running the Container fails after importing}
+  \item {\bf Running the Container fails after importing}
 
-  You might need to use \mono{localhost} in the run command:
+    You might need to use \mono{localhost} in the run command:
 
   \begin{lstlisting}
 podman run --rm -it \
 -v /path/to/project:/root/dev \
 localhost/@\imagename{}@
 \end{lstlisting}
-\item {\bf The WSL distro is not found after importing}
+  \item {\bf The WSL distro is not found after importing}
 
-  Try rebooting your system.
-\item {\bf The debug probe keeps announcing itself as mass storage device}
+    Try rebooting your system.
+  \item {\bf The debug probe keeps announcing itself as mass storage device}
 
-  Open the J-Link shell an disable the mass storage feature.
+    Open the J-Link shell an disable the mass storage feature.
 
   \begin{lstlisting}
 JLink

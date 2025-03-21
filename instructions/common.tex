@@ -19,7 +19,8 @@
   tabsize=4,
   commentstyle=\color{darkgray},
   frame=l,
-  framerule=1pt}
+  framerule=1pt
+}
 \NewDocumentCommand{\mono}{m}{\lstinline{#1}}
 \lstnewenvironment{code} {\lstset{language=C}} {}
 
@@ -44,7 +45,9 @@
 
 \usepackage{tcolorbox}
 \tcbset{parbox=false}
-\newenvironment{infobox} {\begin{tcolorbox}[title=Info]} {\end{tcolorbox}}
+\newenvironment{infobox} {
+\begin{tcolorbox}[title=Info] } {
+\end{tcolorbox} }
 
 % \def\zephyrversion {3.6.0}
 % \def\sdkversion {0.16.5}
