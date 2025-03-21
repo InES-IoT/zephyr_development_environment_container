@@ -1,0 +1,17 @@
+\section{Setup with a Container Runtime}
+
+\begin{itemize}
+  \item Install the \emph{J-Link Software and Documentation pack (\href{https://www.segger.com/downloads/jlink}{Download})}.
+  \item Install a serial terminal like \mono{minicom}.
+  \item Install a container runtime (e.g. \emph{podman} or \emph{docker}).
+  \item Load the image.
+        \begin{lstlisting}
+podman load --input @\imagename{}@.tar.zst
+\end{lstlisting}
+  \item Run the container.
+        \begin{lstlisting}
+podman run --rm -it \
+  -v /path/to/project:/root/dev \
+  @\imagename{}@
+\end{lstlisting}
+\end{itemize}

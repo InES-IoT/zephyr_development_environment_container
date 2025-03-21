@@ -1,0 +1,93 @@
+\input{common.tex}
+
+\begin{document}
+
+\puttitle{}
+
+\section{Introduction}
+
+These instructions explain the setup of a containerized environment for developing Zephyr applications.
+This environment can either be used with a container runtime or the \emph{Windows Subsystem for Linux}.
+
+The \emph{Containerfile} can be found in Appendix~\ref{containerfile} for anyone interested.
+
+\input{native.tex}
+
+\section{Technical Background (optional read)}
+
+\subsection{Necessity for WSL or Containers}
+
+In the following labs, you are going to work with the Zephyr RTOS.
+By providing a containerized environment, we can ensure a reproducible setup.
+Additionally, the images are lightweight, have a small memory footprint, and outperform a conventional VM.
+
+\subsection{Windows Subsystem for Linux}
+
+The Windows Subsystem for Linux (WSL 2) is available for Windows 10/11 since 2019.
+Not all Windows Versions include it per default, an installation is possible via the Microsoft Store or \emph{winget}.
+WSL 2 runs inside a managed virtual machine (VM) that includes a Linux kernel.
+The virtualization is implemented via a highly optimized subset of Hyper-V features.
+WSL 2 on Windows 11 can retain up to 95 \% of the performance of a native Linux Distribution.
+
+\subsubsection*{Benefits compared to a conventional VM}
+
+\begin{itemize}
+  \item Seamless integration in Windows.
+    Files contained within the WSL can be accessed directly via the regular Windows file explorer.
+  \item After creating a WSL image, it can be started directly in the file explorer.
+  \item The VM setup is seamless and executed automatically without user
+    interaction.
+\end{itemize}
+
+\subsection{Container Runtime}
+Container runtimes are an alternative to the VM that WSL 2 provides.
+These runtimes are typically developed for linux systems\footnote{Docker and Podman are available for Windows but run in WSL 2 in the background}.
+Two notable container runtimes are \emph{Docker} and \emph{Podman}.
+
+\newpage
+
+\input{wsl.tex}
+
+\newpage
+
+\input{container_runtime.tex}
+
+\newpage
+
+\input{using_env.tex}
+
+\newpage
+
+\appendix
+
+\fancyfoot{}
+
+\input{vs_code.tex}
+
+\section{Troubleshooting}
+
+\input{troubleshooting.tex}
+
+\newpage
+\newgeometry{margin=1cm}
+
+\section{Containerfile}\label{containerfile}
+
+\lstinputlisting[basicstyle=\ttfamily\scriptsize]{../Containerfile}
+
+Usage example:
+
+\begin{lstlisting}
+podman build \
+  --build-arg="ZEPHYR_VERSION=@\zephyrversion{}@" \
+  --build-arg="SDK_VERSION=@\sdkversion{}@" \
+  . -t @\imagename{}@
+\end{lstlisting}
+
+\end{document}
+
+% Local Variables:
+% TeX-output-dir: "build"
+% TeX-master: t
+% TeX-engine: xetex
+% End:

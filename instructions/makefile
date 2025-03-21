@@ -1,8 +1,7 @@
-SRC = zephyr_container.tex
 BUILD_DIR = build
 
 .PHONY: all
-all: $(addprefix ${BUILD_DIR}/,$(subst .tex,.pdf,${SRC}))
+all: ${BUILD_DIR}/main.pdf
 
 ${BUILD_DIR}/%.pdf: %.tex img/* common.tex | ${BUILD_DIR}
 ifndef ZEPHYRVERSION
@@ -22,7 +21,7 @@ ifndef IMAGENAME
 endif
 	# run twice to resolve references
 	for run in $(shell seq 1 2); do \
-		xelatex --halt-on-error --output-directory=./${BUILD_DIR} "\
+		xelatex --halt-on-error --output-directory=./${BUILD_DIR} --jobname=zephyr_container "\
 \def\zephyrversion {${ZEPHYRVERSION}} \
 \def\sdkversion {${SDKVERSION}} \
 \def\mcu {${MCU}} \
