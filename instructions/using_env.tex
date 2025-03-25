@@ -32,11 +32,6 @@ west build --pristine --board @\board{}@ --build-dir ~/dev/build
 
 \subsection{Flash Sample}
 
-There are two main ways to flash an application to the target.
-When first setting up the environment and testing with the blinky sample, you must always use the way described in \autoref{sec:jflash}.
-The other way is only applicable if the project provides a \mono{.jlink} file.
-
-\subsubsection{J-Flash Lite}\label{sec:jflash}
 Start \emph{J-Flash Lite}, select the target device (\texttt{\mcu}), and make sure the \emph{Internal flash} flash bank is selected.
 
 \begin{center}
@@ -65,30 +60,6 @@ In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and
 \end{infobox}
 
 \newpage
-
-\subsubsection{J-Link Command File}
-If a J-Link command file (\mono{.jlink}) is present in the project, it can be used to flash the binary from the command line.
-On UNIX based systems the command to flash a binary with a J-Link command file is:
-
-\begin{monobox}
-JLinkExe -CommandFile path/to/file.jlink
-\end{monobox}
-
-On Windows the path to the J-Link executable needs to be added to the path environment variable first:
-
-\begin{monobox}
-$env:Path += ";C:\Program Files\SEGGER\JLink_<version>"
-JLink -CommandFile path\to\file.jlink
-\end{monobox}
-
-\begin{infobox}
-  Use the file explorer to get the right path to the JLink executable.
-\end{infobox}
-
-\begin{infobox}
-  The above command to add the path is only for the current session.
-  You can also add it permanently if you want.
-\end{infobox}
 
 \subsection{Test Flashed Sample}
 
