@@ -1,9 +1,17 @@
 \subsection{Test Flashed Sample}
 
-Open a serial terminal with e.g. PuTTY to see the log output.
+Open a serial terminal to see the log output.
+
+with \mono{PuTTY}:
 
 \begin{monobox}
 plink -sercfg 115200 -serial com3
+\end{monobox}
+
+with \mono{minicom}:
+
+\begin{monobox}
+minicom -D /dev/ttyACM0 -b 115200
 \end{monobox}
 
 The output should look like this:
