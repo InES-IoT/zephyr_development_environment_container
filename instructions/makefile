@@ -1,9 +1,6 @@
 BUILD_DIR = build
 
-.PHONY: all
-all: ${BUILD_DIR}/main.pdf
-
-${BUILD_DIR}/%.pdf: %.tex img/* common.tex | ${BUILD_DIR}
+${BUILD_DIR}/zephyr_container.pdf: *.tex img/* | ${BUILD_DIR}
 ifndef ZEPHYRVERSION
 	$(error ZEPHYRVERSION not set)
 endif
@@ -27,7 +24,7 @@ endif
 \def\mcu {${MCU}} \
 \def\board {${BOARD}} \
 \def\imagename {${IMAGENAME}} \
-\input{$<}"; \
+\input{main.tex}"; \
 	done
 
 ${BUILD_DIR}:
