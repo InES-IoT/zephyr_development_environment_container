@@ -1,46 +1,4 @@
 \begin{itemize}
-  \item {\bf Running the Container fails after importing}
-
-    You might need to use \mono{localhost} in the run command:
-  \begin{monobox}
-podman run --rm -it \
-  -v /path/to/project:/root/dev \
-  localhost/@\imagename{}@
-\end{monobox}
-  \item {\bf The WSL distro is not found after importing}
-
-    Try rebooting your system.
-  \item {\bf The WSL prints an unspecified error}
-
-    Try to update the WSL with either of the following two commands:
-  \begin{monobox}
-wsl --update
-wsl --update --web-download
-\end{monobox}
-  \item {\bf The WSL prints \mono{CreateProcessParseCommon: Failed to translate} errors.}
-
-    Try the following fixes.
-    \begin{itemize}
-      \item Try removing and then importing the image again.
-        The following command removes the image.
-        \begin{monobox}
-wsl --unregister @\imagename{}@
-\end{monobox}
-      \item The file system might not be available from within WSL.
-        Run the following command to list the available file systems.
-        \begin{monobox}
-@\cmdinwsl{}@ ls /mnt
-\end{monobox}
-        You can try mounting the missing file system (\mono{D:\\} in this example) with the following commands.
-        \begin{monobox}
-@\cmdinwsl{}@ mkdir /mnt/d
-@\cmdinwsl{}@ mount -t drvfs D: /mnt/d
-\end{monobox}
-      \item Check for suspicous entries in the \mono{Path} environment variable.
-        \begin{monobox}
-rundll32 sysdm.cpl,EditEnvironmentVariables
-\end{monobox}
-    \end{itemize}
   \item {\bf The debug probe keeps announcing itself as mass storage device}
 
     Open the J-Link shell an disable the mass storage feature.
