@@ -55,23 +55,6 @@ wsl --import @\imagename{}@ `
         \begin{monobox}
 @\cmdinwsl{}@
 \end{monobox}
-
-    \begin{infobox}
-      In case you get a \emph{CreateProcessParseCommon:789: Failed to translate D:\textbackslash} error the file system might not be available from within WSL.
-      Run the following command to list the available file systems.
-
-      % \cmdinwsl{ls /mnt}
-          \begin{monobox}
-@\cmdinwsl{}@ ls /mnt
-\end{monobox}
-
-      You can try mounting the missing file system (\mono{D:\\} in this case) with the following commands.
-
-          \begin{monobox}
-@\cmdinwsl{}@ mkdir /mnt/d
-@\cmdinwsl{}@ mount -t drvfs D: /mnt/d
-\end{monobox}
-    \end{infobox}
     \begin{infobox}
       With \emph{Windows Terminal} you can conveniently open a new tab with the environment.
       You might have to restart the terminal for this option to appear.
