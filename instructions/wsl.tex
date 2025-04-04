@@ -45,7 +45,8 @@ winget install "Windows Subsystem for Linux"
   \item Create a folder for the environment and import the provided WSL image.
         \begin{monobox}
 mkdir @\imagename{}@_storage
-wsl --import @\imagename{}@ @\imagename{}@_storage `
+wsl --import @\imagename{}@ `
+  @\imagename{}@_storage `
   "$env:USERPROFILE\Downloads\@\imagename{}@_wsl.tar.zst"
 \end{monobox}
 
