@@ -27,6 +27,10 @@ endif
 \input{main.tex}"; \
 	done
 
+.PHONY: format
+format:
+	tex-fmt *.tex
+
 ${BUILD_DIR}:
 	mkdir -p $@
 

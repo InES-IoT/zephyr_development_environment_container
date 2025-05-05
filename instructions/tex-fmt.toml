@@ -1,0 +1,4 @@
+wrap = false
+tabsize = 2
+tabchar = "space"
+verbatims = ["monobox"]
