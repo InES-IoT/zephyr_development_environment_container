@@ -34,6 +34,8 @@ image build work for versions `0.14.2` to `0.15.2`.
 sed -i "s/\.tar\.xz/\.tar\.gz/" Containerfile
 ```
 
+> A matrix that shows which Zephyr version is compatible with which SDK version can be found on the [Zephyr GitHub wiki](https://github.com/zephyrproject-rtos/sdk-ng/wiki/Zephyr-SDK-Version-Compatibility-Matrix).
+
 ## Export Container Image
 
 ``` shell
