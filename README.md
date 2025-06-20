@@ -67,7 +67,7 @@ Import file system as WSL2 distro on Windows:
 ``` powershell
 mkdir wslDistroStorage\zephyr_v3.5.0
 wsl --import zephyr_v3.5.0 wslDistroStorage\zephyr_v3.5.0 zephyr_v3.5.0_wsl.tar.zst
-wsl -d zephyr
+wsl -d zephyr_v3.5.0
 ```
 
 # Instructions for Users
