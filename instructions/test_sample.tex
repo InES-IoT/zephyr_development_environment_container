@@ -5,7 +5,7 @@ Open a serial terminal to see the log output.
 with \mono{PuTTY}:
 
 \begin{monobox}
-plink -sercfg 115200 -serial com3
+plink -sercfg 115200 -serial com5
 \end{monobox}
 
 with \mono{minicom}:
@@ -24,8 +24,20 @@ The output should look like this:
 You might have to press the reset button on your microcontroller board to start the program and print the message again.
 
 \begin{infobox}
-  Open the device manager to find the COM-port number.
-  \begin{center}
-    \includegraphics[width=.5\paperwidth]{device_manager_com}
-  \end{center}
+  Run the following command in PowerShell to list all COM-ports.
+\begin{lstlisting}
+Get-WmiObject Win32_SerialPort | Select-Object DeviceID, Description
+\end{lstlisting}
+
+  Some debug probes expose multiple COM-ports.
+  In this case COM5 and COM9.
+  Try all of them to find the correct one.
+
+\begin{lstlisting}
+DeviceID Description
+-------- -----------
+COM1     Communications Port
+COM5     JLink CDC UART Port
+COM9     JLink CDC UART Port
+\end{lstlisting}
 \end{infobox}
