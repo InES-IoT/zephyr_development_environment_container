@@ -4,7 +4,7 @@ The following instructions explain how to configure VS Code for Zephyr developme
 
 \begin{itemize}
   \item Install the \href{https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl}{WSL extension}
-  \item Connect to WSL distro using the blue button on the bottom left (\emph{Connect to WSL using Distro...})
+  \item Connect to WSL distro using the \includegraphics[height=.8em]{vscode_connect_button} button on the bottom left (\emph{Connect to WSL using Distro...})
   \item Clangd searches for a compilation database file (\mono{compile_commands.json}) in the parent directories of source files and also in subdirectories named \mono{build} (see \href{https://clangd.llvm.org/installation#project-setup}{documentation}).
     If you build your project in \mono{/tmp/build}, clangd will not find the database file.
     Run the following command to create a link to the compilation database file such that clangd can find it (adapt the paths as needed).
