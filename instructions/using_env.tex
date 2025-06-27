@@ -11,7 +11,7 @@ Run the following inside the environment to compile the blinky sample.
 cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board @\board{}@ --build-dir /tmp/build
 \end{monobox}
-  \item For \textbf{Podman/Docker}:
+  \item For \textbf{Container Engine}:
   \begin{monobox}
 cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board @\board{}@ --build-dir ~/dev/build
@@ -24,7 +24,7 @@ west build --pristine --board @\board{}@ --build-dir ~/dev/build
 \end{infobox}
 
 \begin{infobox}
-  When using Podman/Docker, setting the build directory to \mono{\~/dev/build} is necessary, otherwise you cannot access the binary from outside the container.
+  When using a container engine, setting the build directory to \mono{\~/dev/build} is necessary, otherwise you cannot access the binary from outside the container.
 \end{infobox}
 
 % container engine: make sure builddir accessible

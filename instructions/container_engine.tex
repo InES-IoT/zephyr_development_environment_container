@@ -7,9 +7,14 @@ Follow these steps to set up a Zephyr development environment with a container r
   \item Install the \emph{J-Link Software and Documentation pack (\href{https://www.segger.com/downloads/jlink}{Download})}.
   \item Install a serial terminal like \href{https://formulae.brew.sh/formula/picocom}{picocom}.
   \item Install a container engine (we recommend \href{https://podman.io/docs/installation}{podman}).
+    \begin{infobox}
+      On MacOS 26 and later we recommend using \href{https://opensource.apple.com/projects/container/}{Apple's \mono{container} tool}.
+      Install it using the \mono{container-X.X.X-installer-signed.pkg} file from \href{https://github.com/apple/container/releases}{here}.
+      Just substitute \mono{podman} with \mono{container} in the following commands.
+    \end{infobox}
   \item Load the image.
         \begin{monobox}
-podman load --input @\imagename{}@_ARCH.tar.zst
+podman image load --input @\imagename{}@_ARCH.tar.zst
 \end{monobox}
   \item Execute the following command to run and enter the container.
         \begin{monobox}
