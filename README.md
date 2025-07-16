@@ -8,19 +8,21 @@ As of now flashing is only supported with a J-Link debugger.
 
 ## Build Container Image
 
-This example builds a Zephyr v3.5.0 image for Nordic targets that includes
+This example builds a Zephyr v4.2.0 image for Nordic targets that includes
 `mbedtls` and `mcuboot` as well as the Segger *SystemView* and *RTT* libraries.
 
 ``` shell
 podman build \
   --file=Containerfile \
-  --build-arg="ZEPHYR_VERSION=3.5.0" \
-  --build-arg="SDK_VERSION=0.16.3" \
-  --build-arg="MODULES=cmsis hal_nordic mbedtls mcuboot segger" \
+  --build-arg="ZEPHYR_VERSION=4.2.0" \
+  --build-arg="SDK_VERSION=0.17.2" \
+  --build-arg="MODULES=cmsis_6 hal_nordic mbedtls mcuboot segger" \
   --build-arg="ADDITIONAL_PYTHON_PACKAGES=imgtool" \
   --build-arg="ADDITIONAL_APT_PACKAGES=xxd binutils" \
-  . -t zephyr_nrf_v3.5.0
+  . -t zephyr_nrf_v4.2.0
 ```
+
+> Use `cmsis` instead of `cmsis_6` for Zephyr versions before 4.2.
 
 If the `MODULES` argument is omitted all Zephyr modules will be installed.
 
@@ -39,7 +41,7 @@ sed -i "s/\.tar\.xz/\.tar\.gz/" Containerfile
 ## Export Container Image
 
 ``` shell
-podman save zephyr_nrf_v3.5.0 | zstd -T0 -19 > zephyr_nrf_v3.5.0.tar.zst
+podman save zephyr_nrf_v4.2.0 | zstd -T0 -19 > zephyr_nrf_v4.2.0.tar.zst
 ```
 
 If `zstd` is not available, use `gzip` and change the file ending to `.tar.gz`.
@@ -47,7 +49,7 @@ If `zstd` is not available, use `gzip` and change the file ending to `.tar.gz`.
 ## Import Container Image
 
 ``` shell
-podman load --input zephyr_nrf_v3.5.0.tar.zst
+podman load --input zephyr_nrf_v4.2.0.tar.zst
 ```
 
 ## Use Container as WSL2 Distro
@@ -57,17 +59,17 @@ See https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro for referenc
 Export file system of container:
 
 ``` shell
-cid=$(podman create zephyr_nrf_v3.5.0)
-podman export $cid | zstd -T0 -19 > zephyr_nrf_v3.5.0_wsl.tar.zst
+cid=$(podman create zephyr_nrf_v4.2.0)
+podman export $cid | zstd -T0 -19 > zephyr_nrf_v4.2.0_wsl.tar.zst
 podman rm $cid
 ```
 
 Import file system as WSL2 distro on Windows:
 
 ``` powershell
-mkdir C:\WSL\zephyr_v3.5.0
-wsl --import zephyr_v3.5.0 C:\WSL\zephyr_v3.5.0 zephyr_v3.5.0_wsl.tar.zst
-wsl -d zephyr_v3.5.0
+mkdir C:\WSL\zephyr_v4.2.0
+wsl --import zephyr_v4.2.0 C:\WSL\zephyr_v4.2.0 zephyr_v4.2.0_wsl.tar.zst
+wsl -d zephyr_v4.2.0
 ```
 
 # Instructions for Users
