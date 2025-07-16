@@ -1,3 +1,14 @@
+#  _____       ______   ____
+# |_   _|     |  ____|/ ____|  Institute of Embedded Systems
+#   | |  _ __ | |__  | (___    Zurich University of Applied Sciences
+#   | | | '_ \|  __|  \___ \   8401 Winterthur, Switzerland
+#  _| |_| | | | |____ ____) |
+# |_____|_| |_|______|_____/
+#
+# Copyright 2025 Institute of Embedded Systems at Zurich University of Applied Sciences.
+# All rights reserved.
+# SPDX-License-Identifier: MIT
+
 FROM debian:12-slim
 
 # Set non-interactive frontend for apt-get to skip any user confirmations
