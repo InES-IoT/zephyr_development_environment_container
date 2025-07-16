@@ -1,10 +1,12 @@
 # Zephyr Development Environment Container
 
-The `Containerfile` builds a development environment image that allows compiling
-and flashing Zephyr applications. The following instructions use `podman` but
-`docker` also works.
+At the Zurich University of Applied Sciences, we use Zephyr in lab exercises.
+We need a development environment that can be quickly and reliably set up by
+the participating students. With this container we found a solution that meets
+our needs.
 
-As of now flashing is only supported with a J-Link debugger.
+The `Containerfile` builds a development environment image for developing Zephyr
+applications. The following instructions use `podman` but `docker` also works.
 
 ## Build Container Image
 
