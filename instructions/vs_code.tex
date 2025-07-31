@@ -12,7 +12,7 @@ The following instructions explain how to configure VS Code for Zephyr developme
 \begin{monobox}
 @\cmdinwsl{}@ ln -s `
   /tmp/build/compile_commands.json `
-  /mnt/c/Users/neye/Downloads/zephyr_labs/
+  /mnt/c/path/to/zephyr/project/
 \end{monobox}
   \item Create a file named \mono{.clangd} in the same location where you created the link to the compilation database file.
     Copy the following to this file (make sure that the indentation is the same as here).
@@ -24,6 +24,12 @@ CompileFlags:
     - '-fno-reorder-functions'
     - '-mfp16-format=ieee'
 \end{monobox}
-  \item Install the \href{https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd}{LLVM clangd} extension
+  \item Install the \href{https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd}{LLVM clangd} extension.
+    Make sure to install the extension while you are connected to the WSL.
+
+    When you see the following pop-up, click on \emph{Install}.
+    \begin{center}
+      \includegraphics[width=.7\textwidth]{clangd_quick_time_event.png}
+    \end{center}
   \item Open the project folder via \emph{File} $\rightarrow$ \emph{Open Folder...} $\rightarrow$ \mono{/mnt/c/...}
 \end{itemize}
