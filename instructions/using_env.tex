@@ -36,9 +36,12 @@ Start \emph{J-Flash Lite}, select the target device (\texttt{\mcu}), and make su
 
 \begin{center}
   \begin{tikzpicture}
-    \node [anchor=south west] {\includegraphics[width=8cm]{jflashlite.png}};
-    \draw (7.39,7.1) [red,ultra thick] circle[radius=.4];
-    \draw (.84,3.4) [red,ultra thick] circle[radius=.4];
+    \definecolor{gray}{rgb}{.941,.941,.941}
+    \node [anchor=south west] {\includegraphics[height=8cm]{jflashlite1.png}};
+    \draw (6.99,6.43) [red,ultra thick] circle[radius=.4];
+    \draw (.79,3.08) [red,ultra thick] circle[radius=.4];
+    \draw (.66,6.55) [gray,fill] rectangle (5,6.3);
+    \node at (.52,6.42) [anchor=west] {\fontsize{8pt}{8pt}\selectfont\mcu};
   \end{tikzpicture}
 \end{center}
 
