@@ -1,0 +1,27 @@
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build-and-release-pdf:
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Build PDF
+        run:  make -C instructions ZEPHYRVERSION=4.2.0 SDKVERSION=0.17.2 MCU=STM32F429ZI BOARD=stm32f429i\\_disc1 IMAGENAME=zephyr\\_v\\zephyrversion{}\\_stm32
+      - name: Move `latest` tag to newest commit
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git tag -f latest
+          git push origin --force tags/latest
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "instructions/build/zephyr_container.pdf"
+          makeLatest: true
+          name: "Instructions for Students"
+          tag: "latest"
