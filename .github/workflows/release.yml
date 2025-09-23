@@ -1,0 +1,20 @@
+on:
+  push:
+    branches: [ pdf-action ]
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Build PDF
+        run:  make -C instructions ZEPHYRVERSION=4.2.0 SDKVERSION=0.17.2 MCU=STM32F429ZI BOARD=stm32f429i\\_disc1 IMAGENAME=zephyr\\_v\\zephyrversion{}\\_stm32
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "instructions/build/zephyr_container.pdf"
+          makeLatest: true
+          name: "Instructions"
+          tag: "latest"
