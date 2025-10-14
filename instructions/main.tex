@@ -12,7 +12,18 @@ This environment can either be used with a container engine or the \emph{Windows
 For anyone interested, the \emph{Containerfile} can be found in Appendix~\ref{containerfile}
 and on \href{https://github.com/InES-IoT/zephyr_development_environment_container}{GitHub}.
 
-\input{native.tex}
+\begin{itemize}
+  \item If you are on \textbf{Windows}, read \textbf{Sections~\ref{setupwithwsl} and~\ref{usingenv}}.
+
+    Make sure to download the WSL version of the environment (file with \texttt{\_wsl} suffix) for the right architecture.
+    This would be \texttt{\imagename{}\_x86\_64\_wsl.tar.zst} for Intel or AMD.
+  \item If you are on \textbf{macOS} or a \textbf{Linux distro}, read \textbf{Sections~\ref{setupwithcontainerengine} and~\ref{usingenv}}.
+
+    Make sure to download the container engine version of the environment for the right architecture.
+    For recent MacBooks this would be \texttt{\imagename{}\_arm64.tar.zst}.
+\end{itemize}
+
+\newpage
 
 \section{Technical Background (optional read)}
 
@@ -85,7 +96,8 @@ Two notable container engines are \emph{Docker} and \emph{Podman}.
 \newpage
 \fancyfoot{}
 
-\section{Containerfile}\label{containerfile}
+\section{Containerfile}
+\label{containerfile}
 
 \lstinputlisting[basicstyle=\ttfamily\tiny,columns=fixed]{../Containerfile}
 

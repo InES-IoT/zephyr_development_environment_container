@@ -1,4 +1,5 @@
 \section{Setup with a Container Engine}
+\label{setupwithcontainerengine}
 
 Follow these steps to set up a Zephyr development environment with a container runtime.
 
@@ -8,7 +9,7 @@ Follow these steps to set up a Zephyr development environment with a container r
   \item Install a container engine (we recommend \href{https://podman.io/docs/installation}{podman}).
   \item Load the image.
         \begin{monobox}
-podman load --input @\imagename{}@.tar.zst
+podman load --input @\imagename{}@_ARCH.tar.zst
 \end{monobox}
   \item Execute the following command to run and enter the container.
         \begin{monobox}
