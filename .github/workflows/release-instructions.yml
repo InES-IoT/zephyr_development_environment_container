@@ -2,7 +2,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build-and-release-pdf:
+  build-instructions-pdf:
     runs-on: ubuntu-latest
     container:
       image: texlive/texlive:latest
@@ -11,17 +11,22 @@ jobs:
         uses: actions/checkout@v4
       - name: Build PDF
         run:  make -C instructions ZEPHYRVERSION=4.2.0 SDKVERSION=0.17.2 MCU=STM32F429ZI BOARD=stm32f429i\\_disc1 IMAGENAME=zephyr\\_v\\zephyrversion{}\\_stm32
-      - name: Move `latest` tag to newest commit
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git tag -f latest
-          git push origin --force tags/latest
-      - uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v4
         with:
-          allowUpdates: true
-          artifacts: "instructions/build/zephyr_container.pdf"
-          makeLatest: true
-          name: "Instructions for Students"
-          tag: "latest"
+          name: instructions-for-students
+          path: instructions/build/zephyr_container.pdf
+  release-instructions-pdf:
+    needs: build-instructions-pdf
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download PDF Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: instructions-for-students
+          path: .
+      - name: Recreate release
+        run: |
+          gh release delete latest --cleanup-tag --yes --repo $GITHUB_REPOSITORY || true
+          gh release create latest --latest --title "Instructions for Students" --repo $GITHUB_REPOSITORY "zephyr_container.pdf"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
