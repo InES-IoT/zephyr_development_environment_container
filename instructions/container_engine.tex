@@ -2,8 +2,8 @@
 
 \begin{itemize}
   \item Install the \emph{J-Link Software and Documentation pack (\href{https://www.segger.com/downloads/jlink}{Download})}.
-  \item Install a serial terminal like \mono{minicom}.
-  \item Install a container engine (e.g. \emph{podman} or \emph{docker}).
+  \item Install a serial terminal like \href{https://formulae.brew.sh/formula/picocom}{picocom}.
+  \item Install a container engine (we recommend \href{https://podman.io/docs/installation}{podman}).
   \item Load the image.
         \begin{monobox}
 podman load --input @\imagename{}@.tar.zst

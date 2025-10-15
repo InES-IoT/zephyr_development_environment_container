@@ -8,10 +8,10 @@ with \mono{PuTTY}:
 plink -sercfg 115200 -serial com5
 \end{monobox}
 
-with \mono{minicom}:
+with \mono{picocom} on MacOS (exit picocom with \emph{Control-a Control-x}):
 
 \begin{monobox}
-minicom -D /dev/ttyACM0 -b 115200
+picocom -b 115200 /dev/tty.usbmodem0007789059511
 \end{monobox}
 
 The output should look like this:
