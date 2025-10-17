@@ -43,15 +43,15 @@ sed -i "s/\.tar\.xz/\.tar\.gz/" Containerfile
 ## Export Container Image
 
 ``` shell
-podman save zephyr_nrf_v4.2.0 | zstd -T0 -19 > zephyr_nrf_v4.2.0.tar.zst
+podman save zephyr_nrf_v4.2.0 | gzip > zephyr_nrf_v4.2.0.tar.gz
 ```
 
-If `zstd` is not available, use `gzip` and change the file ending to `.tar.gz`.
+> `gzip` compressed images are supported by WSL, Podman, Docker, and Apple Container
 
 ## Import Container Image
 
 ``` shell
-podman load --input zephyr_nrf_v4.2.0.tar.zst
+podman load --input zephyr_nrf_v4.2.0.tar.gz
 ```
 
 ## Use Container as WSL2 Distro
@@ -62,7 +62,7 @@ Export file system of container:
 
 ``` shell
 cid=$(podman create zephyr_nrf_v4.2.0)
-podman export $cid | zstd -T0 -19 > zephyr_nrf_v4.2.0_wsl.tar.zst
+podman export $cid | gzip > zephyr_nrf_v4.2.0_wsl.tar.gz
 podman rm $cid
 ```
 
@@ -70,7 +70,7 @@ Import file system as WSL2 distro on Windows:
 
 ``` powershell
 mkdir C:\WSL\zephyr_v4.2.0
-wsl --import zephyr_v4.2.0 C:\WSL\zephyr_v4.2.0 zephyr_v4.2.0_wsl.tar.zst
+wsl --import zephyr_v4.2.0 C:\WSL\zephyr_v4.2.0 zephyr_v4.2.0_wsl.tar.gz
 wsl -d zephyr_v4.2.0
 ```
 
