@@ -17,6 +17,7 @@ ifndef IMAGENAME
 	$(error IMAGENAME not set)
 endif
 	# run twice to resolve references
+	set -e; \
 	for run in $(shell seq 1 2); do \
 		xelatex --halt-on-error --output-directory=./${BUILD_DIR} --jobname=zephyr_container "\
 \def\zephyrversion {${ZEPHYRVERSION}} \
