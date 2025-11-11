@@ -46,7 +46,7 @@ sed -i "s/\.tar\.xz/\.tar\.gz/" Containerfile
 podman save zephyr_nrf_v4.2.0 | gzip > zephyr_nrf_v4.2.0.tar.gz
 ```
 
-> `gzip` compressed images are supported by WSL, Podman, Docker, and Apple Container
+> `gzip` is not ideal but supported by all platforms that we recommend (Podman, Docker, and Apple Container).
 
 ## Import Container Image
 
@@ -56,7 +56,7 @@ podman load --input zephyr_nrf_v4.2.0.tar.gz
 
 ## Use Container as WSL2 Distro
 
-See https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro for reference.
+See <https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro> for reference.
 
 Export file system of container:
 
@@ -80,5 +80,5 @@ see [Instructions](./instructions)
 
 # Literature
 
-- https://interrupt.memfault.com/blog/wsl2-for-firmware-development
-- https://interrupt.memfault.com/blog/comparing-fw-dev-envs
+- <https://interrupt.memfault.com/blog/wsl2-for-firmware-development>
+- <https://interrupt.memfault.com/blog/comparing-fw-dev-envs>
