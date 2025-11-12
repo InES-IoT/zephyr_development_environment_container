@@ -6,26 +6,27 @@
 Run the following inside the environment to compile the blinky sample.
 
 \begin{itemize}
-  \item For \textbf{WSL}:
+  \item With \textbf{WSL}:
   \begin{monobox}
 cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board @\board{}@ --build-dir /tmp/build
 \end{monobox}
-  \item For \textbf{Container Engine}:
+
+    \begin{infobox}
+      When using \textbf{WSL}, we recommend to include the \mono{--build-dir /tmp/build} argument.
+      If omitted the build system will compile the application in a \mono{build} folder in the current directory, which will be very slow when this directory is on the Windows file system (e.g. in \mono{/mnt/c/}).
+    \end{infobox}
+
+  \item With \textbf{Container Engine}:
   \begin{monobox}
 cd ~/zephyrproject/zephyr/samples/basic/blinky/
 west build --pristine --board @\board{}@ --build-dir ~/dev/build
 \end{monobox}
+
+    \begin{infobox}
+      When using a \textbf{container engine}, setting the build directory to \mono{\~/dev/build} is necessary, otherwise you cannot access the compiled Zephyr binary from outside the container.
+    \end{infobox}
 \end{itemize}
-
-\begin{infobox}
-  When using WSL, we recommend to include the \mono{--build-dir /tmp/build} argument.
-  If omitted the build system will compile the application in a \mono{build} folder in the current directory, which will be very slow when this directory is on the Windows file system (e.g. in \mono{/mnt/c/}).
-\end{infobox}
-
-\begin{infobox}
-  When using a container engine, setting the build directory to \mono{\~/dev/build} is necessary, otherwise you cannot access the binary from outside the container.
-\end{infobox}
 
 % container engine: make sure builddir accessible
 
