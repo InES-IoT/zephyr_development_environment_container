@@ -52,7 +52,12 @@ In the next window select the firmware file (\mono{build/zephyr/zephyr.hex}) and
 \begin{infobox}
   The WSL file system can be accessed in the explorer.
   \begin{center}
-    \includegraphics[width=.5\paperwidth]{explorer_wsl_hex}
+    \begin{tikzpicture}
+      \definecolor{gray}{rgb}{.851,.851,.851}
+      \node [anchor=south west] {\includegraphics[width=.5\paperwidth]{explorer_wsl_hex}};
+      \draw (.9,1.75) [gray,fill] rectangle (3.5,2.05);
+      \node at (.8,1.9) [anchor=west] {\fontsize{6pt}{6pt}\selectfont\imagename};
+    \end{tikzpicture}
   \end{center}
 
   It is possible, that the \emph{Linux} file system does not show up.

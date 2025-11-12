@@ -60,7 +60,12 @@ wsl --import @\imagename{}@ `
       With \emph{Windows Terminal} you can conveniently open a new tab with the environment.
       You might have to restart the terminal for this option to appear.
       \begin{center}
-        \includegraphics[width=.5\paperwidth]{terminal_open_wsl_tab}
+        \begin{tikzpicture}
+          \definecolor{gray}{rgb}{.208,.208,.208}
+          \node [anchor=south west] {\includegraphics[width=.5\paperwidth]{terminal_open_wsl_tab}};
+          \draw (4.8,1.9) [gray,fill] rectangle (8.5,2.25);
+          \node at (4.81,2.06) [anchor=west] {\fontsize{7pt}{7pt}\selectfont\textcolor{white}{\imagename}};
+        \end{tikzpicture}
       \end{center}
     \end{infobox}
 \end{itemize}
