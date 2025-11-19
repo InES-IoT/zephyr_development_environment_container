@@ -49,21 +49,22 @@ RUN apt-get clean -y && \
 	apt-get autoremove --purge -y && \
 	rm -rf /var/lib/apt/lists/*
 
-# Install python dependencies
-ARG ADDITIONAL_PYTHON_PACKAGES=""
-RUN pip install --break-system-packages west pyelftools pylink-square ${ADDITIONAL_PYTHON_PACKAGES} && \
-	echo "export PATH=~/.local/bin:\"$PATH\"" >> ~/.bashrc
-
 # Init the Zephyr workspace
 ARG ZEPHYR_VERSION
 RUN test -n "${ZEPHYR_VERSION}" || (echo "ZEPHYR_VERSION build argument not set" && false)
 ARG MODULES=""
 WORKDIR /root/zephyrproject
+RUN pip install --break-system-packages west
 RUN git clone --branch v${ZEPHYR_VERSION} --depth=1 \
 	https://github.com/zephyrproject-rtos/zephyr && \
 	west init --local zephyr && \
 	west update --narrow --fetch-opt=--depth=1 ${MODULES} && \
 	echo "source \"$(pwd)/zephyr/zephyr-env.sh\"" >> ~/.bashrc
+
+# Install Python dependencies
+ARG ADDITIONAL_PYTHON_PACKAGES=""
+RUN pip install --break-system-packages -r zephyr/scripts/requirements-base.txt ${ADDITIONAL_PYTHON_PACKAGES} && \
+	echo "export PATH=~/.local/bin:\"$PATH\"" >> ~/.bashrc
 
 # Hack to make J-Link deb installation work
 RUN ln -s "$(which true)" /usr/local/bin/udevadm
